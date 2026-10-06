@@ -104,18 +104,15 @@
     <section class="reviews" id="reviews" aria-labelledby="reviews-title">
       <div class="reviews__head">
         <div class="reviews__score" data-reveal>
-          <p class="eyebrow"><span class="eyebrow__line"></span> Reviews</p>
-          <h2 class="reviews__big" id="reviews-title"><span data-count="4.8" data-decimals="1">4.8</span><small>/ 5</small></h2>
-          <div class="stars stars--lg" style="--rating:4.8" role="img" aria-label="Rated 4.8 out of 5"></div>
-          <p class="reviews__total"><span data-count="11000" data-suffix="+">11,000+</span> reviews</p>
+          <p class="eyebrow"><span class="eyebrow__line"></span> Reviews · All products</p>
+          <h2 class="reviews__big" id="reviews-title"><span data-overall-avg data-decimals="1"></span><small>/ 5</small></h2>
+          <div class="stars stars--lg" role="img" data-overall-stars></div>
+          <p class="reviews__total"><span data-overall-count></span> reviews</p>
         </div>
-        <ul class="bars" data-reveal style="--d:1" aria-label="Rating breakdown">
-          <li><span>5 ★</span><i style="--w:86%"></i><b>86%</b></li>
-          <li><span>4 ★</span><i style="--w:10%"></i><b>10%</b></li>
-          <li><span>3 ★</span><i style="--w:3%"></i><b>3%</b></li>
-          <li><span>2 ★</span><i style="--w:0.6%"></i><b>&lt;1%</b></li>
-          <li><span>1 ★</span><i style="--w:0.4%"></i><b>&lt;1%</b></li>
-        </ul>
+        <div class="reviews__side" data-reveal style="--d:1">
+          <ul class="bars" aria-label="Rating breakdown" data-bars></ul>
+          <ul class="per-product" aria-label="Rating by product" data-per-product></ul>
+        </div>
       </div>
       <div class="reviews__rail" data-reveal style="--d:2">
         <div class="reviews__track" data-reviews></div>

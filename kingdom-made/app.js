@@ -35,6 +35,7 @@
   const PRODUCTS = [
     {
       id: 'sunglasses',
+      ratings: [11760, 1420, 330, 90, 64], // 5★ → 1★ review counts
       name: ['Smart', 'Sunglasses'],
       short: 'Smart Sunglasses',
       price: 299,
@@ -54,6 +55,7 @@
     },
     {
       id: 'wallet',
+      ratings: [8340, 1980, 560, 190, 152], // 5★ → 1★ review counts
       name: ['Pop-Up', 'Card Wallet'],
       short: 'Pop-Up Card Wallet',
       price: 41.99,
@@ -71,6 +73,7 @@
     },
     {
       id: 'necklace',
+      ratings: [13980, 1120, 240, 62, 41], // 5★ → 1★ review counts
       name: ['NFC Cross', 'Necklace'],
       short: 'NFC Cross Necklace',
       price: 14,
@@ -89,6 +92,7 @@
   const APPAREL = [
     {
       id: 'tee-crown',
+      ratings: [9310, 1240, 300, 96, 74], // 5★ → 1★ review counts
       short: 'Crown of Thorns Tee',
       price: 39.99,
       img: 'assets/tee-crown.webp',
@@ -97,6 +101,7 @@
     },
     {
       id: 'tee-strong',
+      ratings: [11420, 980, 210, 58, 37], // 5★ → 1★ review counts
       short: 'Be Strong Tee',
       price: 39.99,
       img: 'assets/tee-strong.webp',
@@ -105,6 +110,7 @@
     },
     {
       id: 'tee-signature',
+      ratings: [8460, 1690, 520, 170, 140], // 5★ → 1★ review counts
       short: 'Signature Cross Tee',
       price: 44.99,
       img: 'assets/tee-signature.webp',
@@ -130,7 +136,15 @@
   // Cart keys are "id" or "id~size" for apparel
   const prodOf = key => byId[key.split('~')[0]];
   const sizeOf = key => key.split('~')[1] || '';
-  const ratingHTML = (cls = '') => `<a href="#reviews" class="rating ${cls}"><span class="stars" style="--rating:4.8" aria-hidden="true"></span><b>4.8</b><span>11k reviews</span></a>`;
+  // Rating and review count come from each product's star breakdown
+  const statsOf = r => {
+    const count = r.reduce((a, b) => a + b, 0);
+    const avg = r.reduce((a, n, i) => a + n * (5 - i), 0) / count;
+    return { count, avg };
+  };
+  const fmtInt = n => n.toLocaleString('en-US');
+  ALL.forEach(p => Object.assign(p, statsOf(p.ratings)));
+  const ratingHTML = (p, cls = '') => `<a href="#reviews" class="rating ${cls}" aria-label="Rated ${p.avg.toFixed(1)} out of 5 from ${fmtInt(p.count)} reviews"><span class="stars" style="--rating:${p.avg.toFixed(2)}" aria-hidden="true"></span><b>${p.avg.toFixed(1)}</b><span>${fmtInt(p.count)} reviews</span></a>`;
 
   const productsEl = $('[data-products]');
   productsEl.innerHTML = PRODUCTS.map((p, idx) => `
@@ -160,7 +174,7 @@
           <span class="line"><span>${p.name[1]}</span></span>
         </h2>
         <p class="product__price"><strong data-price="${p.price}">${money(p.price)}</strong><span>Free shipping</span></p>
-        ${ratingHTML()}
+        ${ratingHTML(p)}
         <p class="product__pitch">${p.pitch}</p>
         <ul class="features" data-inview>
           ${p.features.map(([k, t], i) => `<li class="feature" style="--i:${i}"><span class="feature__icon">${icon(k)}</span><span>${t}</span></li>`).join('')}
@@ -186,7 +200,7 @@
           <h3>${p.short}</h3>
           <strong>${money(p.price)}</strong>
         </div>
-        ${ratingHTML('rating--sm')}
+        ${ratingHTML(p, 'rating--sm')}
         <p>${p.pitch}</p>
         <fieldset class="sizes">
           <legend>Size</legend>
@@ -207,6 +221,23 @@
     </figure>`;
   // Second copy makes the marquee loop seamlessly; screen readers skip it
   $('[data-reviews]').innerHTML = REVIEWS.map(r => reviewCard(r)).join('') + REVIEWS.map(r => reviewCard(r, true)).join('');
+
+  const totals = ALL.reduce((t, p) => t.map((n, i) => n + p.ratings[i]), [0, 0, 0, 0, 0]);
+  const overall = statsOf(totals);
+  const bigEl = $('[data-overall-avg]');
+  bigEl.dataset.count = overall.avg.toFixed(1);
+  bigEl.textContent = overall.avg.toFixed(1);
+  const totalEl = $('[data-overall-count]');
+  totalEl.dataset.count = overall.count;
+  totalEl.textContent = fmtInt(overall.count);
+  const overallStars = $('[data-overall-stars]');
+  overallStars.style.setProperty('--rating', overall.avg.toFixed(2));
+  overallStars.setAttribute('aria-label', `Rated ${overall.avg.toFixed(1)} out of 5`);
+  $('[data-bars]').innerHTML = totals.map((n, i) => {
+    const pct = n / overall.count * 100;
+    return `<li><span>${5 - i} ★</span><i style="--w:${pct.toFixed(1)}%"></i><b>${pct < 1 ? '&lt;1' : Math.round(pct)}%</b></li>`;
+  }).join('');
+  $('[data-per-product]').innerHTML = ALL.map(p => `<li><span>${p.short}</span>${ratingHTML(p, 'rating--sm')}</li>`).join('');
 
   $('[data-year]').textContent = new Date().getFullYear();
 
