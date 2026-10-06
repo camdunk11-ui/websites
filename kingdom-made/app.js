@@ -38,8 +38,8 @@
       name: ['Smart', 'Sunglasses'],
       short: 'Smart Sunglasses',
       price: 299,
-      img: 'assets/sunglasses.webp',
-      wide: true,
+      img: 'assets/sunglasses-3d.webp',
+      stage: 'wide', depth: 7,
       tag: 'Wearable Tech',
       pitch: 'See the world clearly and capture it hands-free. A camera, speakers and an AI assistant built into a matte black frame you can wear all day.',
       features: [
@@ -57,7 +57,8 @@
       name: ['Pop-Up', 'Card Wallet'],
       short: 'Pop-Up Card Wallet',
       price: 41.99,
-      img: 'assets/wallet.webp',
+      img: 'assets/wallet-3d.webp',
+      stage: 'tall', depth: 14,
       tag: 'Everyday Carry',
       pitch: 'Press the side button and your cards fan out, ready to pick. Black leather with the logo debossed on the front, slim enough for any front pocket.',
       features: [
@@ -73,7 +74,8 @@
       name: ['NFC Cross', 'Necklace'],
       short: 'NFC Cross Necklace',
       price: 14,
-      img: 'assets/necklace.webp',
+      img: 'assets/necklace-3d.webp',
+      stage: 'slim', depth: 9,
       tag: 'Tap to Read',
       pitch: 'Wear your faith and share it with a tap. A hidden NFC chip opens the daily verse on any phone, with no battery and no app needed.',
       features: [
@@ -91,11 +93,20 @@
     <section class="product" id="${p.id}" aria-labelledby="${p.id}-title">
       <span class="product__bgnum" aria-hidden="true" data-parallax="0.18">0${idx + 1}</span>
       <div class="product__media" data-inview>
-        <div class="product__tilt" data-tilt>
-          <div class="product__frame ${p.wide ? 'product__frame--wide' : ''}">
-            <img class="product__img" src="${p.img}" alt="Kingdom Made ${p.short}" loading="${idx === 0 ? 'eager' : 'lazy'}" data-parallax="0.08">
-            <span class="product__tag">${p.tag}</span>
+        <div class="stage stage--${p.stage}" data-stage>
+          <div class="stage__glow" aria-hidden="true"></div>
+          <div class="stage__floor" aria-hidden="true"></div>
+          <div class="obj" style="--depth:${p.depth}px">
+            <div class="obj__float">
+              <div class="obj__rot" data-rot>
+                ${Array.from({ length: 6 }, (_, k) => `<img class="obj__depth" src="${p.img}" alt="" aria-hidden="true" style="--k:${k + 1}">`).join('')}
+                <img class="obj__img" src="${p.img}" alt="Kingdom Made ${p.short}" draggable="false">
+                <span class="obj__shine" aria-hidden="true" style="-webkit-mask-image:url(${p.img});mask-image:url(${p.img})"></span>
+              </div>
+            </div>
           </div>
+          <span class="product__tag">${p.tag}</span>
+          <span class="stage__hint" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M4 12h16"/></svg><span data-hint>Move your mouse to rotate</span></span>
         </div>
       </div>
       <div class="product__info" data-inview>
@@ -271,19 +282,67 @@
       const inner = m.querySelector('.btn__text');
       if (inner) inner.style.transform = '';
     });
+  }
 
-    $$('[data-tilt]').forEach(t => {
-      const frame = t.querySelector('.product__frame');
-      t.addEventListener('pointermove', e => {
-        const r = t.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width;
-        const y = (e.clientY - r.top) / r.height;
-        t.style.transform = `perspective(1200px) rotateY(${(x - 0.5) * 6}deg) rotateX(${(0.5 - y) * 6}deg)`;
-        frame.style.setProperty('--mx', x * 100 + '%');
-        frame.style.setProperty('--my', y * 100 + '%');
+  /* ---------- 3D product stages ---------- */
+  const stages = $$('[data-stage]').map(el => ({
+    el,
+    section: el.closest('.product'),
+    rot: $('[data-rot]', el),
+    x: 0, y: 0, tx: 0, ty: 0, hover: false, visible: false,
+  }));
+  if (!finePointer) $$('[data-hint]').forEach(h => { h.textContent = 'Drag to rotate'; });
+
+  if (!reduceMotion) {
+    const clamp = v => Math.max(-1, Math.min(1, v));
+    stages.forEach(s => {
+      // Desktop: the whole product section steers the object
+      s.section.addEventListener('pointermove', e => {
+        if (e.pointerType !== 'mouse') return;
+        const r = s.el.getBoundingClientRect();
+        s.tx = clamp((e.clientX - (r.left + r.width / 2)) / (r.width * 0.6));
+        s.ty = clamp((e.clientY - (r.top + r.height / 2)) / (r.height * 0.6));
+        s.hover = true;
       });
-      t.addEventListener('pointerleave', () => { t.style.transform = ''; });
+      s.section.addEventListener('pointerleave', () => { s.hover = false; });
+
+      // Touch: horizontal drag spins it, vertical drag still scrolls the page
+      let startX = 0, startTx = 0, dragging = false;
+      s.el.addEventListener('pointerdown', e => {
+        if (e.pointerType === 'mouse') return;
+        dragging = true; startX = e.clientX; startTx = s.tx; s.hover = true;
+      });
+      s.el.addEventListener('pointermove', e => {
+        if (!dragging) return;
+        s.tx = clamp(startTx + (e.clientX - startX) / (s.el.clientWidth * 0.45));
+      });
+      const end = () => { if (dragging) { dragging = false; setTimeout(() => { s.hover = false; }, 900); } };
+      s.el.addEventListener('pointerup', end);
+      s.el.addEventListener('pointercancel', end);
     });
+
+    const vis = new IntersectionObserver(es => es.forEach(e => {
+      const s = stages.find(st => st.el === e.target);
+      if (s) s.visible = e.isIntersecting;
+    }), { rootMargin: '10% 0px' });
+    stages.forEach(s => vis.observe(s.el));
+
+    const loop = t => {
+      for (const s of stages) {
+        if (!s.visible) continue;
+        // Idle: slow sway so the object never looks frozen
+        const gx = s.hover ? s.tx : Math.sin(t / 1600) * 0.45;
+        const gy = s.hover ? s.ty : Math.sin(t / 2300) * 0.15;
+        s.x += (gx - s.x) * 0.075;
+        s.y += (gy - s.y) * 0.075;
+        s.el.style.setProperty('--ry', (s.x * 32).toFixed(2) + 'deg');
+        s.el.style.setProperty('--rx', (-s.y * 12).toFixed(2) + 'deg');
+        s.el.style.setProperty('--sx', (50 - s.x * 60).toFixed(1) + '%');
+        s.el.style.setProperty('--px', s.x.toFixed(3));
+      }
+      requestAnimationFrame(loop);
+    };
+    requestAnimationFrame(loop);
   }
 
   /* ---------- Hero dust particles ---------- */
