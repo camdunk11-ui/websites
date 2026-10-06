@@ -354,7 +354,7 @@
 
     // Active nav link
     let current = '';
-    [...PRODUCTS.map(p => p.id), 'apparel', 'reviews', 'contact'].forEach(id => {
+    [...PRODUCTS.map(p => p.id), 'apparel', 'reviews', 'about', 'contact'].forEach(id => {
       const r = document.getElementById(id).getBoundingClientRect();
       if (r.top < vh * 0.5 && r.bottom > vh * 0.5) current = id;
     });
