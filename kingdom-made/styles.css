@@ -164,7 +164,7 @@ html:not(.js) .loader { display: none; }
     linear-gradient(180deg, #17140f 0%, var(--black) 100%);
 }
 .hero__img {
-  position: absolute; inset: -6% -4%; width: 108%; height: 112%; object-fit: cover;
+  position: absolute; top: -8%; left: -8%; width: 116%; max-width: none; height: 116%; object-fit: cover; object-position: 72% 50%;
   opacity: 0; transform: scale(1.18);
   transition: opacity 1.8s var(--ease), transform 2.6s var(--ease);
 }
