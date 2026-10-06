@@ -493,30 +493,56 @@
   if (canvas && !reduceMotion) {
     const ctx = canvas.getContext('2d');
     let w, h, dpr, parts = [], running = true, raf;
+    // One pre-rendered warm glow, scaled per particle (cheaper than shadowBlur)
+    const sprite = document.createElement('canvas');
+    sprite.width = sprite.height = 64;
+    const sg = sprite.getContext('2d');
+    const grad = sg.createRadialGradient(32, 32, 0, 32, 32, 32);
+    grad.addColorStop(0, 'rgba(255, 238, 205, 1)');
+    grad.addColorStop(0.25, 'rgba(245, 214, 160, 0.75)');
+    grad.addColorStop(1, 'rgba(201, 164, 106, 0)');
+    sg.fillStyle = grad;
+    sg.fillRect(0, 0, 64, 64);
+
+    // Three depths: far specks, mid dust, a few big soft ones up close
+    const LAYERS = [
+      { share: 0.55, size: [1.5, 3.5], speed: 0.35, alpha: [0.35, 0.8] },
+      { share: 0.37, size: [3.5, 7], speed: 0.7, alpha: [0.3, 0.7] },
+      { share: 0.08, size: [12, 26], speed: 1.25, alpha: [0.08, 0.2] },
+    ];
+    const rand = (a, b) => a + Math.random() * (b - a);
+    const spawn = (L, anywhere) => ({
+      L,
+      x: anywhere ? Math.random() * w : -30,
+      y: Math.random() * h,
+      s: rand(...L.size),
+      vx: rand(0.12, 0.4) * L.speed,
+      vy: -rand(0.05, 0.3) * L.speed,
+      a: rand(...L.alpha),
+      ph: Math.random() * Math.PI * 2,
+      tw: rand(700, 1500),
+    });
     const resize = () => {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       w = canvas.clientWidth; h = canvas.clientHeight;
       canvas.width = w * dpr; canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.round(Math.min(90, (w * h) / 16000));
-      parts = Array.from({ length: count }, () => ({
-        x: Math.random() * w, y: Math.random() * h,
-        r: Math.random() * 1.6 + 0.3,
-        vx: Math.random() * 0.25 + 0.05, vy: -(Math.random() * 0.2 + 0.04),
-        a: Math.random() * 0.5 + 0.15, ph: Math.random() * Math.PI * 2,
-      }));
+      const total = Math.round(Math.max(90, Math.min(260, (w * h) / 5000)));
+      parts = LAYERS.flatMap(L => Array.from({ length: Math.round(total * L.share) }, () => spawn(L, true)));
     };
     const draw = t => {
       ctx.clearRect(0, 0, w, h);
+      ctx.globalCompositeOperation = 'lighter';
       for (const p of parts) {
-        p.x += p.vx; p.y += p.vy + Math.sin(t / 1800 + p.ph) * 0.08;
-        if (p.x > w + 5) p.x = -5; if (p.y < -5) p.y = h + 5;
-        const glow = p.a * (0.6 + 0.4 * Math.sin(t / 900 + p.ph));
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(245, 222, 180, ${glow})`;
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
+        p.x += p.vx;
+        p.y += p.vy + Math.sin(t / 1800 + p.ph) * 0.12 * p.L.speed;
+        if (p.x > w + 30) Object.assign(p, spawn(p.L, false));
+        else if (p.y < -30) Object.assign(p, spawn(p.L, true), { y: h + 20 });
+        ctx.globalAlpha = p.a * (0.55 + 0.45 * Math.sin(t / p.tw + p.ph));
+        ctx.drawImage(sprite, p.x - p.s, p.y - p.s, p.s * 2, p.s * 2);
       }
+      ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = 'source-over';
       if (running) raf = requestAnimationFrame(draw);
     };
     resize();
