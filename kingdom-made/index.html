@@ -35,6 +35,8 @@
       <a href="#sunglasses" class="nav__link">Sunglasses</a>
       <a href="#wallet" class="nav__link">Wallet</a>
       <a href="#necklace" class="nav__link">Necklace</a>
+      <a href="#apparel" class="nav__link">Apparel</a>
+      <a href="#reviews" class="nav__link">Reviews</a>
     </nav>
     <button class="cart-btn magnetic" type="button" aria-label="Open cart" data-open-cart>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
@@ -87,6 +89,39 @@
 
     <!-- Products (rendered from data in app.js) -->
     <div id="products" data-products></div>
+
+    <!-- Apparel -->
+    <section class="apparel" id="apparel" aria-labelledby="apparel-title">
+      <div class="section-head">
+        <p class="eyebrow" data-reveal><span class="eyebrow__line"></span> Apparel</p>
+        <h2 class="section-title" id="apparel-title" data-reveal style="--d:1">Wear the <em>Word.</em></h2>
+        <p class="section-sub" data-reveal style="--d:2">Washed-black heavyweight tees with faded, worn-in prints. Oversized fit.</p>
+      </div>
+      <div class="apparel__grid" data-apparel></div>
+    </section>
+
+    <!-- Reviews -->
+    <section class="reviews" id="reviews" aria-labelledby="reviews-title">
+      <div class="reviews__head">
+        <div class="reviews__score" data-reveal>
+          <p class="eyebrow"><span class="eyebrow__line"></span> Reviews</p>
+          <h2 class="reviews__big" id="reviews-title"><span data-count="4.8" data-decimals="1">4.8</span><small>/ 5</small></h2>
+          <div class="stars stars--lg" style="--rating:4.8" role="img" aria-label="Rated 4.8 out of 5"></div>
+          <p class="reviews__total"><span data-count="11000" data-suffix="+">11,000+</span> reviews</p>
+        </div>
+        <ul class="bars" data-reveal style="--d:1" aria-label="Rating breakdown">
+          <li><span>5 ★</span><i style="--w:86%"></i><b>86%</b></li>
+          <li><span>4 ★</span><i style="--w:10%"></i><b>10%</b></li>
+          <li><span>3 ★</span><i style="--w:3%"></i><b>3%</b></li>
+          <li><span>2 ★</span><i style="--w:0.6%"></i><b>&lt;1%</b></li>
+          <li><span>1 ★</span><i style="--w:0.4%"></i><b>&lt;1%</b></li>
+        </ul>
+      </div>
+      <div class="reviews__rail" data-reveal style="--d:2">
+        <div class="reviews__track" data-reviews></div>
+      </div>
+      <p class="reviews__note">Sample reviews written for this school project. Kingdom Made is a demo brand.</p>
+    </section>
 
     <!-- Why -->
     <section class="why" id="why">

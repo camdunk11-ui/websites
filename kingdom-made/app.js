@@ -86,7 +86,51 @@
       ],
     },
   ];
-  const byId = Object.fromEntries(PRODUCTS.map(p => [p.id, p]));
+  const APPAREL = [
+    {
+      id: 'tee-crown',
+      short: 'Crown of Thorns Tee',
+      price: 39.99,
+      img: 'assets/tee-crown.webp',
+      tag: 'Front print',
+      pitch: 'A distressed crown of thorns around a weathered cross, printed on the chest.',
+    },
+    {
+      id: 'tee-strong',
+      short: 'Be Strong Tee',
+      price: 39.99,
+      img: 'assets/tee-strong.webp',
+      tag: 'Back print',
+      pitch: 'A gothic cross across the back with 2 Chronicles 15:7: "Be strong and do not give up."',
+    },
+    {
+      id: 'tee-signature',
+      short: 'Signature Cross Tee',
+      price: 44.99,
+      img: 'assets/tee-signature.webp',
+      tag: 'Signature',
+      pitch: 'A split gold-and-white cross with CAMERON DUNKLE printed across the chest.',
+    },
+  ];
+  const SIZES = ['S', 'M', 'L', 'XL', 'XXL'];
+
+  const REVIEWS = [
+    { name: 'Marcus T.', product: 'Smart Sunglasses', stars: 5, text: 'The camera is crazy clear and I use the verse of the day every morning. Built like a premium pair.' },
+    { name: 'Jordan R.', product: 'NFC Cross Necklace', stars: 5, text: 'I tapped it on my friend\'s phone and the verse popped up. Started a real conversation. Fourteen dollars well spent.' },
+    { name: 'Elijah M.', product: 'Be Strong Tee', stars: 5, text: 'Heavy cotton, washed black looks perfect. People stop me to read the back.' },
+    { name: 'Gabe S.', product: 'Pop-Up Card Wallet', stars: 5, text: 'Press the button and the cards fan out. Slim enough for my front pocket and it feels solid.' },
+    { name: 'Isaiah W.', product: 'Crown of Thorns Tee', stars: 4, text: 'Love the faded print. Fits oversized, so size down if you want it closer.' },
+    { name: 'Caleb D.', product: 'Smart Sunglasses', stars: 5, text: 'Calls through the speakers are clear and the battery lasts all day. Logo on the arm is clean.' },
+    { name: 'Noah P.', product: 'Signature Cross Tee', stars: 5, text: 'The gold cross looks even better in person. My favorite shirt right now.' },
+    { name: 'Micah L.', product: 'NFC Cross Necklace', stars: 5, text: 'Brushed finish looks expensive. No battery, no app, it just works.' },
+  ];
+
+  const ALL = [...PRODUCTS, ...APPAREL];
+  const byId = Object.fromEntries(ALL.map(p => [p.id, p]));
+  // Cart keys are "id" or "id~size" for apparel
+  const prodOf = key => byId[key.split('~')[0]];
+  const sizeOf = key => key.split('~')[1] || '';
+  const ratingHTML = (cls = '') => `<a href="#reviews" class="rating ${cls}"><span class="stars" style="--rating:4.8" aria-hidden="true"></span><b>4.8</b><span>11k reviews</span></a>`;
 
   const productsEl = $('[data-products]');
   productsEl.innerHTML = PRODUCTS.map((p, idx) => `
@@ -116,6 +160,7 @@
           <span class="line"><span>${p.name[1]}</span></span>
         </h2>
         <p class="product__price"><strong data-price="${p.price}">${money(p.price)}</strong><span>Free shipping</span></p>
+        ${ratingHTML()}
         <p class="product__pitch">${p.pitch}</p>
         <ul class="features" data-inview>
           ${p.features.map(([k, t], i) => `<li class="feature" style="--i:${i}"><span class="feature__icon">${icon(k)}</span><span>${t}</span></li>`).join('')}
@@ -129,6 +174,39 @@
         </div>
       </div>
     </section>`).join('');
+
+  $('[data-apparel]').innerHTML = APPAREL.map((p, idx) => `
+    <article class="tee" data-reveal style="--d:${idx}">
+      <div class="tee__media" data-tee>
+        <img src="${p.img}" alt="Kingdom Made ${p.short}" loading="lazy">
+        <span class="product__tag">${p.tag}</span>
+      </div>
+      <div class="tee__body">
+        <div class="tee__top">
+          <h3>${p.short}</h3>
+          <strong>${money(p.price)}</strong>
+        </div>
+        ${ratingHTML('rating--sm')}
+        <p>${p.pitch}</p>
+        <fieldset class="sizes">
+          <legend>Size</legend>
+          ${SIZES.map(sz => `<label><input type="radio" id="${p.id}-${sz}" name="size-${p.id}" value="${sz}"${sz === 'M' ? ' checked' : ''}><span>${sz}</span></label>`).join('')}
+        </fieldset>
+        <button class="btn btn--ghost btn--block magnetic" type="button" data-add="${p.id}" data-sized>
+          <span class="btn__text">Add to cart</span>
+          <svg class="btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+      </div>
+    </article>`).join('');
+
+  const reviewCard = (r, hidden) => `
+    <figure class="review"${hidden ? ' aria-hidden="true"' : ''}>
+      <div class="stars" style="--rating:${r.stars}" role="img" aria-label="${r.stars} out of 5 stars"></div>
+      <blockquote>${r.text}</blockquote>
+      <figcaption><span class="review__avatar" aria-hidden="true">${r.name[0]}</span><span><b>${r.name}</b>${r.product}</span></figcaption>
+    </figure>`;
+  // Second copy makes the marquee loop seamlessly; screen readers skip it
+  $('[data-reviews]').innerHTML = REVIEWS.map(r => reviewCard(r)).join('') + REVIEWS.map(r => reviewCard(r, true)).join('');
 
   $('[data-year]').textContent = new Date().getFullYear();
 
@@ -185,6 +263,7 @@
       e.target.classList.add('is-in');
       const price = e.target.querySelector?.('[data-price]');
       if (price) countUp(price);
+      e.target.querySelectorAll?.('[data-count]').forEach(countNum);
       io.unobserve(e.target);
     });
   }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
@@ -198,6 +277,20 @@
       const t = Math.min(1, (now - start) / dur);
       const eased = 1 - Math.pow(1 - t, 4);
       el.textContent = money(target * eased);
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  function countNum(el) {
+    const target = parseFloat(el.dataset.count);
+    const dec = parseInt(el.dataset.decimals || '0', 10);
+    const fmt = v => v.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec }) + (el.dataset.suffix || '');
+    if (reduceMotion) { el.textContent = fmt(target); return; }
+    const dur = 1600, start = performance.now();
+    const tick = now => {
+      const t = Math.min(1, (now - start) / dur);
+      el.textContent = fmt(target * (1 - Math.pow(1 - t, 4)));
       if (t < 1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
@@ -230,9 +323,9 @@
 
     // Active nav link
     let current = '';
-    PRODUCTS.forEach(p => {
-      const r = document.getElementById(p.id).getBoundingClientRect();
-      if (r.top < vh * 0.5 && r.bottom > vh * 0.5) current = p.id;
+    [...PRODUCTS.map(p => p.id), 'apparel', 'reviews'].forEach(id => {
+      const r = document.getElementById(id).getBoundingClientRect();
+      if (r.top < vh * 0.5 && r.bottom > vh * 0.5) current = id;
     });
     navLinks.forEach(a => a.classList.toggle('is-active', a.getAttribute('href') === '#' + current));
 
@@ -281,6 +374,25 @@
       m.style.transform = '';
       const inner = m.querySelector('.btn__text');
       if (inner) inner.style.transform = '';
+    });
+  }
+
+  /* ---------- Apparel card tilt ---------- */
+  if (finePointer && !reduceMotion) {
+    $$('[data-tee]').forEach(m => {
+      m.addEventListener('pointermove', e => {
+        const r = m.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        m.style.setProperty('--ry', (x * 14).toFixed(2) + 'deg');
+        m.style.setProperty('--rx', (-y * 10).toFixed(2) + 'deg');
+        m.style.setProperty('--mx', ((x + 0.5) * 100).toFixed(1) + '%');
+        m.style.setProperty('--my', ((y + 0.5) * 100).toFixed(1) + '%');
+      });
+      m.addEventListener('pointerleave', () => {
+        m.style.setProperty('--ry', '0deg');
+        m.style.setProperty('--rx', '0deg');
+      });
     });
   }
 
@@ -393,7 +505,7 @@
   const STORE_KEY = 'km-cart';
   let items = {};
   try { items = JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch { items = {}; }
-  Object.keys(items).forEach(k => { if (!byId[k] || !(items[k] > 0)) delete items[k]; });
+  Object.keys(items).forEach(k => { if (!prodOf(k) || !(items[k] > 0)) delete items[k]; });
   const save = () => { try { localStorage.setItem(STORE_KEY, JSON.stringify(items)); } catch { /* storage unavailable */ } };
 
   const overlay = $('[data-overlay]');
@@ -403,7 +515,7 @@
   const subtotalEl = $('[data-subtotal]');
 
   const count = () => Object.values(items).reduce((a, b) => a + b, 0);
-  const subtotal = () => Object.entries(items).reduce((s, [id, q]) => s + byId[id].price * q, 0);
+  const subtotal = () => Object.entries(items).reduce((s, [key, q]) => s + prodOf(key).price * q, 0);
 
   function render() {
     const n = count();
@@ -412,11 +524,13 @@
     subtotalEl.textContent = money(subtotal());
     cart.classList.toggle('is-empty', n === 0);
     listEl.innerHTML = Object.entries(items).map(([id, q], i) => {
-      const p = byId[id];
+      const p = prodOf(id);
+      const size = sizeOf(id);
       return `<li class="cart-item" style="--i:${i}" data-id="${id}">
         <img src="${p.img}" alt="">
         <div>
           <h3>${p.short}</h3>
+          ${size ? `<div class="cart-item__size">Size ${size}</div>` : ''}
           <div class="cart-item__price">${money(p.price * q)}</div>
           <div class="qty">
             <button type="button" aria-label="Decrease quantity" data-dec="${id}">−</button>
@@ -448,18 +562,23 @@
 
   const toast = $('[data-toast]');
   let toastTimer;
-  function showToast(p) {
-    toast.innerHTML = `<img src="${p.img}" alt=""><span><b>${p.short}</b> added to your cart</span>`;
+  function showToast(p, size) {
+    toast.innerHTML = `<img src="${p.img}" alt=""><span><b>${p.short}</b>${size ? ` (${size})` : ''} added to your cart</span>`;
     toast.classList.add('is-show');
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => toast.classList.remove('is-show'), 2400);
   }
 
   function add(id, btn) {
-    items[id] = (items[id] || 0) + 1;
+    let key = id;
+    if (btn?.hasAttribute('data-sized')) {
+      const picked = btn.closest('.tee').querySelector('input[type=radio]:checked');
+      key = id + '~' + (picked ? picked.value : 'M');
+    }
+    items[key] = (items[key] || 0) + 1;
     save(); render();
     countEls.forEach(el => { el.classList.remove('is-bump'); void el.offsetWidth; el.classList.add('is-bump'); });
-    showToast(byId[id]);
+    showToast(prodOf(key), sizeOf(key));
     if (btn) {
       const label = btn.querySelector('.btn__text');
       btn.classList.add('is-added');
@@ -514,9 +633,10 @@
   function openCheckout() {
     if (!count()) return;
     const total = money(subtotal());
-    $('[data-summary-items]').innerHTML = Object.entries(items).map(([id, q]) => {
-      const p = byId[id];
-      return `<li><img src="${p.img}" alt=""><span>${p.short}<small>Qty ${q}</small></span><span>${money(p.price * q)}</span></li>`;
+    $('[data-summary-items]').innerHTML = Object.entries(items).map(([key, q]) => {
+      const p = prodOf(key);
+      const size = sizeOf(key);
+      return `<li><img src="${p.img}" alt=""><span>${p.short}<small>${size ? `Size ${size} · ` : ''}Qty ${q}</small></span><span>${money(p.price * q)}</span></li>`;
     }).join('');
     $('[data-summary-subtotal]').textContent = total;
     $('[data-summary-total]').textContent = total;
