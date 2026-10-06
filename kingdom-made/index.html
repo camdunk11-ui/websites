@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kingdom Made — More of Him. Less of Me.</title>
+  <meta name="description" content="Kingdom Made: dark Christian streetwear and tech. Smart sunglasses, pop-up card wallet, NFC cross necklace.">
+  <meta name="theme-color" content="#0b0a09">
+  <link rel="icon" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/hero.webp">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="is-loading">
+
+  <!-- Preloader -->
+  <div class="loader" aria-hidden="true">
+    <img class="loader__logo" src="assets/logo.png" alt="">
+    <div class="loader__bar"><span></span></div>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="progress" aria-hidden="true"><span></span></div>
+
+  <!-- Header -->
+  <header class="header" id="top">
+    <a href="#hero" class="brand" aria-label="Kingdom Made home">
+      <img src="assets/logo.png" alt="" class="brand__mark" width="40" height="34">
+      <span class="brand__name">KINGDOM&nbsp;MADE</span>
+    </a>
+    <nav class="nav" aria-label="Products">
+      <a href="#sunglasses" class="nav__link">Sunglasses</a>
+      <a href="#wallet" class="nav__link">Wallet</a>
+      <a href="#necklace" class="nav__link">Necklace</a>
+      <a href="#apparel" class="nav__link">Apparel</a>
+      <a href="#reviews" class="nav__link">Reviews</a>
+      <a href="#about" class="nav__link">About</a>
+      <a href="#contact" class="nav__link">Contact</a>
+    </nav>
+    <button class="cart-btn magnetic" type="button" aria-label="Open cart" data-open-cart>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+      <span class="cart-btn__label">Cart</span>
+      <span class="cart-btn__count" data-cart-count>0</span>
+    </button>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="hero">
+      <div class="hero__media" aria-hidden="true">
+        <img class="hero__img" data-hero-img src="assets/hero.webp"
+             alt="" onerror="this.remove()">
+        <div class="hero__light"></div>
+        <canvas class="hero__dust" data-dust></canvas>
+        <div class="hero__shade"></div>
+      </div>
+
+      <div class="hero__content">
+        <p class="eyebrow hero__eyebrow" data-hero-in>
+          <span class="eyebrow__line"></span> Kingdom Made — Faith · Strength · Tech
+        </p>
+        <h1 class="slogan" aria-label="More of Him. Less of Me.">
+          <span class="slogan__line" data-split>MORE OF <em class="slogan__him">HIM.</em></span>
+          <span class="slogan__line slogan__line--me" data-split>LESS OF <em class="slogan__me">ME.</em></span>
+        </h1>
+        <div class="hero__foot" data-hero-in>
+          <p class="hero__sub">Dark streetwear and everyday tech, built for those who carry their faith everywhere.</p>
+          <a href="#sunglasses" class="btn btn--primary magnetic">
+            <span class="btn__text">Shop the collection</span>
+            <svg class="btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <a href="#sunglasses" class="scroll-cue" data-hero-in aria-label="Scroll to products">
+        <span>Scroll</span><i></i>
+      </a>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Faith</span><b>✝</b><span>Strength</span><b>✝</b><span>Tech</span><b>✝</b><span>More of Him</span><b>✝</b><span>Less of Me</span><b>✝</b>
+        <span>Faith</span><b>✝</b><span>Strength</span><b>✝</b><span>Tech</span><b>✝</b><span>More of Him</span><b>✝</b><span>Less of Me</span><b>✝</b>
+      </div>
+    </div>
+
+    <!-- Products (rendered from data in app.js) -->
+    <div id="products" data-products></div>
+
+    <!-- Apparel -->
+    <section class="apparel" id="apparel" aria-labelledby="apparel-title">
+      <div class="section-head">
+        <p class="eyebrow" data-reveal><span class="eyebrow__line"></span> Apparel</p>
+        <h2 class="section-title" id="apparel-title" data-reveal style="--d:1">Wear the <em>Word.</em></h2>
+        <p class="section-sub" data-reveal style="--d:2">Washed-black heavyweight tees with faded, worn-in prints. Oversized fit.</p>
+      </div>
+      <div class="apparel__grid" data-apparel></div>
+    </section>
+
+    <!-- Reviews -->
+    <section class="reviews" id="reviews" aria-labelledby="reviews-title">
+      <div class="reviews__head">
+        <div class="reviews__score" data-reveal>
+          <p class="eyebrow"><span class="eyebrow__line"></span> Reviews · All products</p>
+          <h2 class="reviews__big" id="reviews-title"><span data-overall-avg data-decimals="1"></span><small>/ 5</small></h2>
+          <div class="stars stars--lg" role="img" data-overall-stars></div>
+          <p class="reviews__total"><span data-overall-count></span> reviews</p>
+        </div>
+        <div class="reviews__side" data-reveal style="--d:1">
+          <ul class="bars" aria-label="Rating breakdown" data-bars></ul>
+          <ul class="per-product" aria-label="Rating by product" data-per-product></ul>
+        </div>
+      </div>
+      <div class="reviews__rail" data-reveal style="--d:2">
+        <div class="reviews__track" data-reviews></div>
+      </div>
+      <p class="reviews__note">Sample reviews written for this school project. Kingdom Made is a demo brand.</p>
+    </section>
+
+    <!-- Why -->
+    <section class="why" id="why">
+      <div class="why__bg" aria-hidden="true">
+        <img src="assets/collection.webp" alt="" data-parallax="-0.12" loading="lazy">
+      </div>
+      <div class="why__inner">
+        <p class="eyebrow" data-reveal><span class="eyebrow__line"></span> Why Kingdom Made</p>
+        <p class="why__text" data-words>
+          Faith gives it purpose. Strength gives it weight. Tech makes it part of every day. Kingdom Made is gear that keeps Him close wherever you go.
+        </p>
+        <ul class="pillars">
+          <li data-reveal style="--d:0"><span>01</span>Faith</li>
+          <li data-reveal style="--d:1"><span>02</span>Strength</li>
+          <li data-reveal style="--d:2"><span>03</span>Tech</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="about" id="about" aria-labelledby="about-title">
+      <div class="about__visual" data-reveal>
+        <img class="about__bg" src="assets/hero.webp" alt="" data-parallax="-0.08" loading="lazy">
+        <img class="about__mark" src="assets/logo.png" alt="Kingdom Made logo" width="220" height="186" loading="lazy">
+        <ul class="about__facts">
+          <li><b>16</b><span>Years old</span></li>
+          <li><b>11th</b><span>Grade</span></li>
+          <li><b>1</b><span>Mission</span></li>
+        </ul>
+      </div>
+      <div class="about__copy">
+        <p class="eyebrow" data-reveal><span class="eyebrow__line"></span> About the founder</p>
+        <h2 class="section-title" id="about-title" data-reveal style="--d:1">Meet <em>Cameron.</em></h2>
+        <p class="about__lead" data-reveal style="--d:2">I'm Cameron, a 16-year-old high school junior and the founder of Kingdom Made.</p>
+        <p data-reveal style="--d:2">It started in a classroom. A teacher I'm grateful for showed me how important it is to build your own brand: to know what you stand for and let it show in everything you create. I knew right away what I wanted mine to stand for.</p>
+        <p data-reveal style="--d:3"><strong>More of Him. Less of me.</strong> Those words are the heart of everything we make. They mean putting Jesus above myself, and living in a way that brings glory to God instead of to me.</p>
+        <p data-reveal style="--d:3">I design clothing that represents Jesus because a shirt can start a conversation, and that conversation might be exactly what someone needs to hear. The tech is the fun side: everyday gear that's simply cool to own, with faith built in.</p>
+        <blockquote class="about__verse" data-reveal style="--d:4">
+          “I can do all things through Christ who strengthens me.”
+          <cite>Philippians 4:13</cite>
+        </blockquote>
+        <p class="about__sign" data-reveal style="--d:4">Cameron <span>Founder, Kingdom Made</span></p>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <div class="contact__info">
+        <p class="eyebrow" data-reveal><span class="eyebrow__line"></span> Contact</p>
+        <h2 class="section-title" id="contact-title" data-reveal style="--d:1">Get in <em>touch.</em></h2>
+        <p class="section-sub" data-reveal style="--d:2">Questions about an order, sizing or the tech? Send us a message and we'll get back to you within one business day.</p>
+        <ul class="channels" data-reveal style="--d:3">
+          <li>
+            <span class="channels__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+            <span><small>Email</small><b>kingdom.made@gmail.com</b></span>
+            <button class="copy-btn" type="button" data-copy="kingdom.made@gmail.com">Copy</button>
+          </li>
+          <li>
+            <span class="channels__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span>
+            <span><small>Phone</small><b>(615) 555-0147</b></span>
+            <button class="copy-btn" type="button" data-copy="(615) 555-0147">Copy</button>
+          </li>
+          <li>
+            <span class="channels__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+            <span><small>Hours</small><b>Mon–Fri, 9am–6pm CT</b></span>
+          </li>
+          <li>
+            <span class="channels__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6"/></svg></span>
+            <span><small>Social</small><b>@kingdommade</b></span>
+          </li>
+        </ul>
+      </div>
+
+      <form class="form contact__form" data-contact-form novalidate data-reveal style="--d:2">
+        <div class="contact__step is-active" data-contact-step="form">
+          <div class="field-row field-row--even">
+            <label class="field"><span>Name</span><input id="contact-name" name="name" autocomplete="off" required placeholder="Your name"></label>
+            <label class="field"><span>Email</span><input id="contact-email" name="email" type="email" autocomplete="off" required placeholder="you@example.com"></label>
+          </div>
+          <label class="field"><span>Topic</span>
+            <select id="contact-topic" name="topic">
+              <option>Order question</option>
+              <option>Sizing help</option>
+              <option>Product tech support</option>
+              <option>Collabs and wholesale</option>
+              <option>Something else</option>
+            </select>
+          </label>
+          <label class="field"><span>Message</span><textarea id="contact-message" name="message" rows="5" required placeholder="How can we help?"></textarea></label>
+          <button class="btn btn--primary btn--block magnetic" type="submit">
+            <span class="btn__text">Send message</span>
+            <svg class="btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <p class="form__note">Demo form for a school project. Messages aren't sent anywhere.</p>
+        </div>
+        <div class="contact__step contact__done" data-contact-step="done" aria-live="polite">
+          <svg class="check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg>
+          <h3>Message received<span data-contact-name></span>.</h3>
+          <p>We'll reply to <b data-contact-email></b> within one business day.</p>
+          <button class="btn btn--ghost" type="button" data-contact-reset><span class="btn__text">Send another</span></button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Slogan reprise -->
+    <section class="reprise" aria-label="More of Him. Less of Me.">
+      <img src="assets/logo.png" alt="" class="reprise__mark" data-reveal width="120" height="101">
+      <p class="reprise__slogan">
+        <span class="reprise__line" data-reveal>MORE OF <em>HIM.</em></span>
+        <span class="reprise__line reprise__line--me" data-reveal style="--d:1">LESS OF ME.</span>
+      </p>
+      <a href="#sunglasses" class="btn btn--ghost magnetic" data-reveal style="--d:2">
+        <span class="btn__text">Back to the collection</span>
+        <svg class="btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+      </a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__brand">
+      <img src="assets/logo.png" alt="Kingdom Made logo" width="56" height="47">
+      <div>
+        <strong>KINGDOM MADE</strong>
+        <span>More of Him. Less of Me.</span>
+      </div>
+    </div>
+    <nav class="footer__nav" aria-label="Footer">
+      <a href="#sunglasses">Smart Sunglasses</a>
+      <a href="#wallet">Pop-Up Card Wallet</a>
+      <a href="#necklace">NFC Cross Necklace</a>
+      <a href="#apparel">Apparel</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <p class="footer__contact">kingdom.made@gmail.com · (615) 555-0147</p>
+    <p class="footer__note">© <span data-year></span> Kingdom Made. A school project — demo store, no real products are sold.</p>
+  </footer>
+
+  <!-- Cart drawer -->
+  <div class="overlay" data-overlay></div>
+  <aside class="cart" aria-label="Shopping cart" aria-hidden="true" data-cart>
+    <div class="cart__head">
+      <h2>Your Cart <span data-cart-count-text></span></h2>
+      <button class="icon-btn" type="button" aria-label="Close cart" data-close-cart>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <ul class="cart__items" data-cart-items></ul>
+    <div class="cart__empty" data-cart-empty>
+      <img src="assets/logo.png" alt="" width="64" height="54">
+      <p>Your cart is empty.</p>
+      <button class="btn btn--ghost" type="button" data-close-cart data-goto="#sunglasses"><span class="btn__text">Explore the collection</span></button>
+    </div>
+    <div class="cart__foot" data-cart-foot>
+      <div class="cart__row"><span>Subtotal</span><strong data-subtotal>$0.00</strong></div>
+      <div class="cart__row cart__row--muted"><span>Shipping</span><span>Free</span></div>
+      <button class="btn btn--primary btn--block magnetic" type="button" data-checkout>
+        <span class="btn__text">Checkout</span>
+        <svg class="btn__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Checkout -->
+  <div class="checkout" role="dialog" aria-modal="true" aria-labelledby="checkout-title" aria-hidden="true" data-checkout-modal>
+    <div class="checkout__panel">
+      <button class="icon-btn checkout__close" type="button" aria-label="Close checkout" data-close-checkout>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+
+      <div class="checkout__step is-active" data-step="form">
+        <p class="eyebrow"><span class="eyebrow__line"></span> Secure checkout · Demo</p>
+        <h2 id="checkout-title">Checkout</h2>
+        <div class="checkout__grid">
+          <form class="form" data-checkout-form novalidate>
+            <fieldset>
+              <legend>Contact</legend>
+              <label class="field"><span>Full name</span><input name="name" autocomplete="off" required placeholder="John Doe"></label>
+              <label class="field"><span>Email</span><input name="email" type="email" autocomplete="off" required placeholder="you@example.com"></label>
+            </fieldset>
+            <fieldset>
+              <legend>Shipping</legend>
+              <label class="field"><span>Address</span><input name="address" autocomplete="off" required placeholder="123 Main St"></label>
+              <div class="field-row">
+                <label class="field"><span>City</span><input name="city" autocomplete="off" required placeholder="City"></label>
+                <label class="field"><span>ZIP</span><input name="zip" autocomplete="off" required placeholder="00000" inputmode="numeric"></label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Payment</legend>
+              <div class="demo-card">
+                <div class="demo-card__top"><img src="assets/logo.png" alt="" width="34" height="29"><span>DEMO CARD</span></div>
+                <div class="demo-card__num">•••• •••• •••• 7777</div>
+                <div class="demo-card__bottom"><span>KINGDOM MADE</span><span>12/30</span></div>
+              </div>
+              <p class="form__note">This is a demo store for a school project. No payment is taken and nothing you type is sent anywhere.</p>
+            </fieldset>
+            <button class="btn btn--primary btn--block magnetic" type="submit">
+              <span class="btn__text">Place order · <span data-checkout-total>$0.00</span></span>
+            </button>
+          </form>
+          <aside class="summary">
+            <h3>Order summary</h3>
+            <ul class="summary__items" data-summary-items></ul>
+            <div class="cart__row"><span>Subtotal</span><span data-summary-subtotal></span></div>
+            <div class="cart__row cart__row--muted"><span>Shipping</span><span>Free</span></div>
+            <div class="cart__row summary__total"><span>Total</span><strong data-summary-total></strong></div>
+          </aside>
+        </div>
+      </div>
+
+      <div class="checkout__step checkout__step--center" data-step="processing">
+        <div class="spinner" aria-hidden="true"><img src="assets/logo.png" alt=""></div>
+        <p class="processing-text">Processing your order…</p>
+      </div>
+
+      <div class="checkout__step checkout__step--center" data-step="success">
+        <svg class="check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg>
+        <p class="eyebrow"><span class="eyebrow__line"></span> Order confirmed</p>
+        <h2 class="success__title">Thank you<span data-success-name></span>.</h2>
+        <p class="success__order">Order <strong data-order-no></strong> is on its way (in spirit — this is a demo).</p>
+        <blockquote class="verse">“Whatever you do, work at it with all your heart, as working for the Lord.”<cite>Colossians 3:23</cite></blockquote>
+        <button class="btn btn--primary magnetic" type="button" data-close-checkout><span class="btn__text">Continue shopping</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" role="status" aria-live="polite" data-toast></div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
