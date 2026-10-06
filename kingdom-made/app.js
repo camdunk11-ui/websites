@@ -354,7 +354,7 @@
 
     // Active nav link
     let current = '';
-    [...PRODUCTS.map(p => p.id), 'apparel', 'reviews'].forEach(id => {
+    [...PRODUCTS.map(p => p.id), 'apparel', 'reviews', 'contact'].forEach(id => {
       const r = document.getElementById(id).getBoundingClientRect();
       if (r.top < vh * 0.5 && r.bottom > vh * 0.5) current = id;
     });
@@ -733,6 +733,44 @@
     }, reduceMotion ? 300 : 1800);
   });
   form.addEventListener('input', e => e.target.closest('.field')?.classList.remove('is-error'));
+
+
+  /* ==========================================================================
+     Contact (demo)
+     ========================================================================== */
+  const contactForm = $('[data-contact-form]');
+  const contactStep = name => $$('[data-contact-step]', contactForm).forEach(el => el.classList.toggle('is-active', el.dataset.contactStep === name));
+  contactForm.addEventListener('submit', e => {
+    e.preventDefault();
+    let ok = true;
+    [...contactForm.elements].filter(el => el.required).forEach(el => {
+      const valid = el.value.trim() && (el.type !== 'email' || /\S+@\S+\.\S+/.test(el.value));
+      el.closest('.field').classList.toggle('is-error', !valid);
+      if (!valid && ok) { el.focus(); ok = false; }
+    });
+    if (!ok) return;
+    const first = contactForm.elements.name.value.trim().split(/\s+/)[0];
+    $('[data-contact-name]').textContent = first ? `, ${first}` : '';
+    $('[data-contact-email]').textContent = contactForm.elements.email.value.trim();
+    contactStep('done');
+    contactForm.reset();
+  });
+  contactForm.addEventListener('input', e => e.target.closest('.field')?.classList.remove('is-error'));
+  $('[data-contact-reset]').addEventListener('click', () => contactStep('form'));
+
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-copy]');
+    if (!b) return;
+    const done = () => {
+      b.classList.add('is-copied'); b.textContent = 'Copied';
+      setTimeout(() => { b.classList.remove('is-copied'); b.textContent = 'Copy'; }, 1600);
+    };
+    const fallback = () => {
+      const r = document.createRange(); r.selectNodeContents(b.previousElementSibling.querySelector('b'));
+      const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    };
+    try { navigator.clipboard.writeText(b.dataset.copy).then(done, fallback); } catch { fallback(); }
+  });
 
   render();
 })();

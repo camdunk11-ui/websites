@@ -626,6 +626,39 @@ body.is-glow .slogan__me .char { opacity: 0.45; transition: opacity 2.4s var(--e
 
 .cart-item__size { font-size: 0.74rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--bone-mute); margin-bottom: 2px; }
 
+/* ---------- Contact ---------- */
+.contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 96px); align-items: start; padding: clamp(90px, 14vh, 160px) var(--gutter); border-bottom: 1px solid var(--line); }
+.contact__info { display: grid; gap: 18px; min-width: 0; }
+.channels { list-style: none; margin: 18px 0 0; padding: 0; display: grid; border-top: 1px solid var(--line); }
+.channels li { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; align-items: center; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.channels__icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line-2); color: var(--gold); transition: background 0.4s ease, transform 0.6s var(--ease); }
+.channels li:hover .channels__icon { background: var(--gold-soft); transform: rotate(-10deg); }
+.channels__icon svg { width: 18px; height: 18px; }
+.channels small { display: block; font-size: 0.66rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--bone-mute); }
+.channels b { font-weight: 500; font-size: 1.02rem; overflow-wrap: break-word; user-select: all; }
+.copy-btn { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line-2); font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bone-dim); transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+.copy-btn:hover { color: var(--bone); border-color: var(--bone-dim); }
+.copy-btn.is-copied { background: var(--gold); border-color: var(--gold); color: var(--black); }
+
+.contact__form { padding: clamp(24px, 3vw, 40px); border: 1px solid var(--line); border-radius: 6px; background: var(--coal); }
+.contact__step { display: none; gap: 16px; }
+.contact__step.is-active { display: grid; animation: stepIn 0.7s var(--ease) both; }
+.field-row--even { grid-template-columns: 1fr 1fr; }
+.field textarea, .field select {
+  width: 100%; padding: 14px 16px; border-radius: 4px; border: 1px solid var(--line-2); background: var(--black); color: var(--bone);
+  font: inherit; font-size: 0.95rem; resize: vertical; transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.field textarea::placeholder { color: rgba(240, 232, 218, 0.25); }
+.field textarea:focus, .field select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 4px var(--gold-soft); }
+.field.is-error textarea { border-color: #b8664f; animation: shake 0.4s; }
+.contact__done { justify-items: center; text-align: center; padding: 30px 0; }
+.contact__done h3 { margin: 0; font-family: var(--serif); font-weight: 600; font-size: 2rem; }
+.contact__done p { margin: 0 0 8px; color: var(--bone-dim); }
+.contact__done b { color: var(--bone); font-weight: 500; }
+.contact__step.is-active .check circle { animation: draw 0.9s var(--ease) 0.1s forwards; }
+.contact__step.is-active .check path { animation: draw 0.6s var(--ease) 0.75s forwards; }
+.footer__contact { grid-column: 1 / -1; margin: 0; font-size: 0.82rem; color: var(--bone-dim); letter-spacing: 0.04em; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
   .product, .product:nth-child(even) { grid-template-columns: 1fr; min-height: 0; gap: 40px; }
@@ -634,6 +667,10 @@ body.is-glow .slogan__me .char { opacity: 0.45; transition: opacity 2.4s var(--e
   .summary { order: -1; }
   .apparel__grid { grid-template-columns: 1fr; max-width: 520px; margin-inline: auto; }
   .reviews__head { grid-template-columns: 1fr; }
+  .contact { grid-template-columns: 1fr; }
+}
+@media (max-width: 1180px) {
+  .nav { display: none; }
 }
 @media (max-width: 720px) {
   :root { --header-h: 64px; }
@@ -647,7 +684,11 @@ body.is-glow .slogan__me .char { opacity: 0.45; transition: opacity 2.4s var(--e
   .pillars { grid-template-columns: 1fr; }
   .pillars li { padding: 18px 0; border-bottom: 1px solid var(--line); }
   .footer { grid-template-columns: 1fr; }
-  .field-row { grid-template-columns: 1fr; }
+  .field-row, .field-row--even { grid-template-columns: 1fr; }
+  .channels li { grid-template-columns: 38px minmax(0, 1fr) auto; gap: 12px; }
+  .channels__icon { width: 38px; height: 38px; }
+  .channels b { font-size: 0.9rem; }
+  .copy-btn { padding: 7px 10px; letter-spacing: 0.14em; }
   .toast { white-space: normal; width: calc(100% - 32px); }
 }
 
