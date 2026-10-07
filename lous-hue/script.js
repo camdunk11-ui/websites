@@ -28,11 +28,11 @@ const products = [
   { cat: 'apparel', icon: 'longsleeve', tag: 'Apparel', name: 'Long Sleeve Shirt', desc: 'Sleeve-print long sleeve with the brush-and-ribbon art.', rating: 5, count: 31 },
   { cat: 'apparel', icon: 'shorts', tag: 'Apparel', name: 'Shorts', desc: 'Relaxed-fit shorts with embroidered LH monogram.', rating: 4, count: 22 },
   { cat: 'apparel', icon: 'hoodie', tag: 'Apparel', name: 'Hoodie', desc: 'Heavy fleece hoodie — "Bring out the hue to be you" back print.', rating: 5, count: 86 },
-  { cat: 'apparel', icon: 'jacket', tag: 'Apparel', name: 'Jacket', desc: 'Statement jacket with gold-tone embroidered crest.', rating: 5, count: 19 },
-  { cat: 'apparel', icon: 'bandana', tag: 'Apparel', name: 'Bandana', desc: 'Paisley-meets-flash bandana in black and cream.', rating: 5, count: 40 },
-  { cat: 'apparel', icon: 'hat', tag: 'Apparel', name: 'Hat', desc: 'Structured cap with the LH star monogram.', rating: 4, count: 35 },
-  { cat: 'extras', icon: 'charm', tag: 'Extras', name: 'Charms', desc: 'Metal charms inspired by classic tattoo flash.', rating: 5, count: 29 },
-  { cat: 'apparel', icon: 'socks', tag: 'Apparel', name: 'Socks', desc: 'Comfy crew socks with woven tattoo-art patterns.', rating: 5, count: 48 },
+  { cat: 'apparel', icon: 'jacket', tag: 'Apparel', name: 'Jacket', desc: 'Black-and-cream varsity jacket with an embroidered doberman crest patch.', rating: 5, count: 19, thumb: 'assets/jacket.png' },
+  { cat: 'apparel', icon: 'bandana', tag: 'Apparel', name: 'Bandana', desc: 'Black bandana with a cream paisley border and scattered flash stars and roses.', rating: 5, count: 40, thumb: 'assets/bandana.png' },
+  { cat: 'apparel', icon: 'hat', tag: 'Apparel', name: 'Hat', desc: 'Structured black cap with an embroidered champagne-gold star.', rating: 4, count: 35, thumb: 'assets/hat.png' },
+  { cat: 'extras', icon: 'charm', tag: 'Extras', name: 'Charms', desc: 'Gold charms inspired by tattoo flash: doberman, paintbrush, dagger and roses.', rating: 5, count: 29, thumb: 'assets/charms.png' },
+  { cat: 'apparel', icon: 'socks', tag: 'Apparel', name: 'Socks', desc: 'Black crew socks with woven gold stars and dagger flash.', rating: 5, count: 48, thumb: 'assets/socks.png' },
 ];
 
 const reviews = [
@@ -57,7 +57,7 @@ grid.innerHTML = products.map((p, i) => `
     ${p.img ? `<div class="card-media"><img src="${p.img}" alt="${p.name}" /></div>` : ''}
     <div class="card-body">
       <span class="card-tag">${p.tag}</span>
-      ${p.img ? '' : `<div class="card-icon"><svg viewBox="0 0 24 24" aria-hidden="true">${icons[p.icon]}</svg></div>`}
+      ${p.img ? '' : `<div class="card-thumb">${p.thumb ? `<img src="${p.thumb}" alt="${p.name}" />` : `<svg viewBox="0 0 24 24" aria-hidden="true">${icons[p.icon]}</svg>`}</div>`}
       <h3>${p.name}</h3>
       <p>${p.desc}</p>
       <div class="card-foot"><span class="stars" aria-label="${p.rating} out of 5 stars">${stars(p.rating)}<small>(${p.count})</small></span></div>

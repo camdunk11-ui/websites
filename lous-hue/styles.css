@@ -213,6 +213,12 @@ h3 { font-family: var(--display); font-weight: 500; letter-spacing: .04em; color
 .card:hover { transform: translateY(-8px); border-color: rgba(232,214,178,.4); }
 .card:hover::before { opacity: 1; }
 .card.hide { display: none; }
+.card-thumb { height: 190px; margin: -26px -26px 22px; display: grid; place-items: center; border-bottom: 1px solid var(--line); background: radial-gradient(circle at 50% 55%, rgba(232,214,178,.14), transparent 68%); overflow: hidden; }
+.card-thumb img { max-height: 160px; max-width: 82%; width: auto; filter: drop-shadow(0 16px 20px rgba(0,0,0,.65)); transition: transform .8s var(--ease); }
+.card:hover .card-thumb img { transform: scale(1.08) rotate(-2deg); }
+.card-thumb svg { width: 64px; height: 64px; stroke: var(--gold); fill: none; stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; opacity: .8; transition: transform .8s var(--ease); }
+.card:hover .card-thumb svg { transform: scale(1.12) rotate(-6deg); }
+.card:not(.card-feature) .card-tag { z-index: 1; }
 .card-feature { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 20px; align-items: center; padding: 0; }
 .card-feature .card-body { position: relative; padding: 26px 26px 26px 0; }
 .card-feature .card-tag { position: static; display: block; margin-bottom: 10px; }
