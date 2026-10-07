@@ -18,7 +18,7 @@ const icons = {
 };
 
 const products = [
-  { cat: 'tattoo', icon: 'gun', tag: 'Machines', name: 'Old Style Tattoo Gun', desc: 'Classic coil machine with that traditional buzz — built for bold lines.', rating: 5, count: 38 },
+  { cat: 'tattoo', icon: 'gun', tag: 'Machines', name: 'Old Style Tattoo Gun', desc: 'Classic coil machine with that traditional buzz — built for bold lines. Polished steel frame, dual wrapped coils and a knurled grip.', rating: 5, count: 38, img: 'assets/old-style-gun.png' },
   { cat: 'tattoo', icon: 'machine', tag: 'Machines', name: 'Electric Tattoo Gun', desc: 'Smooth, quiet rotary-style machine for lining, shading and color.', rating: 5, count: 52 },
   { cat: 'tattoo', icon: 'aftercare', tag: 'Aftercare', name: 'Healing & Protection Aftercare', desc: 'Soothing balm that protects fresh ink and helps it heal bright.', rating: 5, count: 91 },
   { cat: 'tattoo', icon: 'supplies', tag: 'Supplies', name: 'Tattoo Supplies', desc: 'Needles, ink caps, grips, gloves and everything for a clean setup.', rating: 4, count: 44 },
@@ -53,12 +53,15 @@ const stars = n => '★'.repeat(n) + '☆'.repeat(5 - n);
 // ---------- Render products ----------
 const grid = $('#productGrid');
 grid.innerHTML = products.map((p, i) => `
-  <article class="card reveal" data-cat="${p.cat}" style="--d:${(i % 4) * 0.08}s">
-    <span class="card-tag">${p.tag}</span>
-    <div class="card-icon"><svg viewBox="0 0 24 24" aria-hidden="true">${icons[p.icon]}</svg></div>
-    <h3>${p.name}</h3>
-    <p>${p.desc}</p>
-    <div class="card-foot"><span class="stars" aria-label="${p.rating} out of 5 stars">${stars(p.rating)}<small>(${p.count})</small></span></div>
+  <article class="card reveal${p.img ? ' card-feature' : ''}" data-cat="${p.cat}" style="--d:${(i % 4) * 0.08}s">
+    ${p.img ? `<div class="card-media"><img src="${p.img}" alt="${p.name}" /></div>` : ''}
+    <div class="card-body">
+      <span class="card-tag">${p.tag}</span>
+      ${p.img ? '' : `<div class="card-icon"><svg viewBox="0 0 24 24" aria-hidden="true">${icons[p.icon]}</svg></div>`}
+      <h3>${p.name}</h3>
+      <p>${p.desc}</p>
+      <div class="card-foot"><span class="stars" aria-label="${p.rating} out of 5 stars">${stars(p.rating)}<small>(${p.count})</small></span></div>
+    </div>
   </article>`).join('');
 
 // card spotlight follows mouse

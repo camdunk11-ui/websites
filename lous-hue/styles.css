@@ -204,6 +204,14 @@ h3 { font-family: var(--display); font-weight: 500; letter-spacing: .04em; color
 .card:hover { transform: translateY(-8px); border-color: rgba(232,214,178,.4); }
 .card:hover::before { opacity: 1; }
 .card.hide { display: none; }
+.card-feature { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 20px; align-items: center; padding: 0; }
+.card-feature .card-body { position: relative; padding: 26px 26px 26px 0; }
+.card-feature .card-tag { position: static; display: block; margin-bottom: 10px; }
+.card-media { position: relative; height: 100%; min-height: 260px; display: grid; place-items: center; padding: 22px; background: radial-gradient(circle at 50% 45%, rgba(232,214,178,.16), transparent 65%); }
+.card-media img { max-height: 250px; width: auto; filter: drop-shadow(0 22px 26px rgba(0,0,0,.7)); transform: rotate(-4deg); transition: transform .9s var(--ease); animation: float 6s ease-in-out infinite; }
+.card-feature:hover .card-media img { transform: rotate(4deg) scale(1.06); }
+@media (min-width: 620px) { .card-feature { grid-column: span 2; } }
+@media (max-width: 619px) { .card-feature { grid-template-columns: 1fr; } .card-feature .card-body { padding: 0 26px 26px; } .card-media { min-height: 220px; } }
 .card.pop { animation: pop .6s var(--ease) both; }
 @keyframes pop { from { opacity: 0; transform: translateY(24px) scale(.97); } }
 .card-icon { width: 58px; height: 58px; border-radius: 14px; display: grid; place-items: center; border: 1px solid var(--line); margin-bottom: 22px; background: rgba(232,214,178,.04); transition: transform .6s var(--ease); }
