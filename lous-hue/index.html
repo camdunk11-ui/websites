@@ -35,6 +35,10 @@
       <a href="#contact">Contact</a>
       <a href="#signup" class="btn btn-sm">Sign Up</a>
     </nav>
+    <button class="cart-btn" id="cartBtn" type="button" aria-label="Open cart">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1 13H7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
     <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
   </header>
 
@@ -146,8 +150,44 @@
           <div class="deal-num">25<small>%</small></div>
           <h3>Bring a trio</h3>
           <p>Come in as a group of 3 and get 25% off your next tattoo. All 3 people need to get tattooed for the discount to apply.</p>
-          <a href="#contact" class="btn btn-sm">Book Your Trio</a>
+          <a href="#book" class="btn btn-sm">Book Your Trio</a>
         </article>
+      </div>
+
+      <div class="booking reveal" id="book">
+        <div class="booking-copy">
+          <p class="eyebrow">Book a Tattoo</p>
+          <h3>Pick your size, bring your crew</h3>
+          <p>Choose a size and how many people are getting tattooed. Book as a trio and the 25% discount applies automatically. Have a sign-up code? Add it in your cart for 15% off.</p>
+          <ul class="booking-notes">
+            <li>Trio deal: all 3 people must get tattooed.</li>
+            <li>The best deal applies. Tattoo discounts don't stack.</li>
+          </ul>
+        </div>
+        <form class="booking-form" id="bookForm">
+          <fieldset>
+            <legend>Size</legend>
+            <div class="seg" id="sizeSeg">
+              <label><input type="radio" name="size" value="small" checked /><span><b>Small</b><small>Palm-size · $80</small></span></label>
+              <label><input type="radio" name="size" value="medium" /><span><b>Medium</b><small>Hand-size · $150</small></span></label>
+              <label><input type="radio" name="size" value="large" /><span><b>Large</b><small>Half-sleeve session · $300</small></span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>People getting tattooed</legend>
+            <div class="seg seg-people" id="peopleSeg">
+              <label><input type="radio" name="people" value="1" checked /><span><b>1</b><small>Just me</small></span></label>
+              <label><input type="radio" name="people" value="2" /><span><b>2</b><small>Duo</small></span></label>
+              <label><input type="radio" name="people" value="3" /><span><b>3</b><small>Trio · 25% off</small></span></label>
+            </div>
+          </fieldset>
+          <div class="booking-total">
+            <span>Estimated total</span>
+            <strong id="bookPrice">$80</strong>
+            <em id="bookSave"></em>
+          </div>
+          <button type="submit" class="btn">Add tattoo to cart</button>
+        </form>
       </div>
     </section>
 
@@ -211,6 +251,39 @@
     <img src="assets/logo-dog-full.png" alt="Lou's Hue — You need to bring out the hue to be you" class="footer-logo" />
     <p>© <span id="year"></span> Lou's Hue. All rights reserved.</p>
   </footer>
+
+  <div class="cart-overlay" id="cartOverlay" hidden></div>
+  <aside class="cart" id="cart" aria-label="Shopping cart" aria-hidden="true">
+    <div class="cart-head">
+      <h2>Your Cart</h2>
+      <button type="button" class="cart-close" id="cartClose" aria-label="Close cart">×</button>
+    </div>
+    <div class="cart-body" id="cartBody">
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-hint" id="cartHint"></div>
+      <div class="cart-code">
+        <label for="codeInput">Sign-up code (15% off tattoos)</label>
+        <div class="code-row"><input id="codeInput" type="text" placeholder="HUE15-XXXXX" autocomplete="off" /><button type="button" id="codeApply" class="btn btn-sm btn-ghost">Apply</button></div>
+        <p class="code-msg" id="codeMsg" role="status"></p>
+      </div>
+      <dl class="cart-totals" id="cartTotals"></dl>
+      <form class="checkout" id="checkoutForm" novalidate>
+        <div class="field"><input id="coName" type="text" placeholder=" " required /><label for="coName">Full name</label></div>
+        <div class="field"><input id="coEmail" type="email" placeholder=" " required /><label for="coEmail">Email</label></div>
+        <button type="submit" class="btn" id="checkoutBtn">Place order</button>
+        <p class="form-msg" id="coMsg" role="status"></p>
+        <p class="demo-note">Demo checkout for a class project. No payment is taken.</p>
+      </form>
+    </div>
+    <div class="cart-done" id="cartDone" hidden>
+      <div class="done-mark" aria-hidden="true">✦</div>
+      <h3>Order placed</h3>
+      <p id="doneText"></p>
+      <div class="proof-code" id="orderNum"></div>
+      <button type="button" class="btn btn-sm" id="doneBtn">Keep shopping</button>
+    </div>
+  </aside>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="script.js"></script>
 </body>

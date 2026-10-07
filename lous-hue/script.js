@@ -18,21 +18,21 @@ const icons = {
 };
 
 const products = [
-  { cat: 'tattoo', icon: 'gun', tag: 'Machines', name: 'Old Style Tattoo Gun', desc: 'Classic coil machine with that traditional buzz — built for bold lines. Polished steel frame, dual wrapped coils and a knurled grip.', rating: 5, count: 38, img: 'assets/old-style-gun.png' },
-  { cat: 'tattoo', icon: 'machine', tag: 'Machines', name: 'Electric Tattoo Gun', desc: 'Smooth, quiet wireless pen machine for lining, shading and color. Digital voltage display and swappable cartridge needles.', rating: 5, count: 52, img: 'assets/electric-gun.png' },
-  { cat: 'tattoo', icon: 'aftercare', tag: 'Aftercare', name: 'Healing & Protection Aftercare', desc: 'Soothing balm that protects fresh ink and helps it heal bright. 5 fl oz / 150 mL jar with the Lou\'s Hue seal.', rating: 5, count: 91, img: 'assets/aftercare.png' },
-  { cat: 'tattoo', icon: 'supplies', tag: 'Supplies', name: 'Tattoo Supplies', desc: 'Cartridge needles, black ink bottles, caps and black nitrile gloves for a clean setup.', rating: 4, count: 44, thumb: 'assets/supplies.png' },
-  { cat: 'tattoo', icon: 'kit', tag: 'Kits', name: 'Starter Tattoo Kit', desc: 'Black-and-gold hard case with a pen machine, cartridge and practice skin for new artists.', rating: 5, count: 27, thumb: 'assets/starter-kit.png' },
-  { cat: 'extras', icon: 'sticker', tag: 'Extras', name: 'Sticker Pack', desc: "American traditional flash stickers by Lou: dobermans, daggers, roses, a swallow and the paintbrush. Slap 'em anywhere.", rating: 5, count: 63, thumb: 'assets/stickers.png' },
-  { cat: 'apparel', icon: 'shirt', tag: 'Apparel', name: 'Signature Tee', desc: 'Heavyweight black tee with the doberman-and-triangle crest across the chest.', rating: 5, count: 74, thumb: 'assets/tee.png' },
-  { cat: 'apparel', icon: 'longsleeve', tag: 'Apparel', name: 'Long Sleeve Shirt', desc: 'Black long sleeve with the paintbrush-and-ribbon art running down the sleeve.', rating: 5, count: 31, thumb: 'assets/longsleeve.png' },
-  { cat: 'apparel', icon: 'shorts', tag: 'Apparel', name: 'Shorts', desc: 'Relaxed-fit fleece shorts with white drawstrings and a small gold star.', rating: 4, count: 22, thumb: 'assets/shorts.png' },
-  { cat: 'apparel', icon: 'hoodie', tag: 'Apparel', name: 'Hoodie', desc: 'Heavy fleece hoodie with a big doberman-and-triangle back print and gold sparkle stars.', rating: 5, count: 86, thumb: 'assets/hoodie.png' },
-  { cat: 'apparel', icon: 'jacket', tag: 'Apparel', name: 'Jacket', desc: 'Black-and-cream varsity jacket with an embroidered doberman crest patch.', rating: 5, count: 19, thumb: 'assets/jacket.png' },
-  { cat: 'apparel', icon: 'bandana', tag: 'Apparel', name: 'Bandana', desc: 'Black bandana with a cream paisley border and scattered flash stars and roses.', rating: 5, count: 40, thumb: 'assets/bandana.png' },
-  { cat: 'apparel', icon: 'hat', tag: 'Apparel', name: 'Hat', desc: 'Structured black cap with an embroidered champagne-gold star.', rating: 4, count: 35, thumb: 'assets/hat.png' },
-  { cat: 'extras', icon: 'charm', tag: 'Extras', name: 'Charms', desc: 'Gold charms inspired by tattoo flash: doberman, paintbrush, dagger and roses.', rating: 5, count: 29, thumb: 'assets/charms.png' },
-  { cat: 'apparel', icon: 'socks', tag: 'Apparel', name: 'Socks', desc: 'Black crew socks with woven gold stars and dagger flash.', rating: 5, count: 48, thumb: 'assets/socks.png' },
+  { price: 189, b2g2: false, cat: 'tattoo', icon: 'gun', tag: 'Machines', name: 'Old Style Tattoo Gun', desc: 'Classic coil machine with that traditional buzz — built for bold lines. Polished steel frame, dual wrapped coils and a knurled grip.', rating: 5, count: 38, img: 'assets/old-style-gun.png' },
+  { price: 249, b2g2: false, cat: 'tattoo', icon: 'machine', tag: 'Machines', name: 'Electric Tattoo Gun', desc: 'Smooth, quiet wireless pen machine for lining, shading and color. Digital voltage display and swappable cartridge needles.', rating: 5, count: 52, img: 'assets/electric-gun.png' },
+  { price: 18, b2g2: true, cat: 'tattoo', icon: 'aftercare', tag: 'Aftercare', name: 'Healing & Protection Aftercare', desc: 'Soothing balm that protects fresh ink and helps it heal bright. 5 fl oz / 150 mL jar with the Lou\'s Hue seal.', rating: 5, count: 91, img: 'assets/aftercare.png' },
+  { price: 35, b2g2: true, cat: 'tattoo', icon: 'supplies', tag: 'Supplies', name: 'Tattoo Supplies', desc: 'Cartridge needles, black ink bottles, caps and black nitrile gloves for a clean setup.', rating: 4, count: 44, thumb: 'assets/supplies.png' },
+  { price: 129, b2g2: true, cat: 'tattoo', icon: 'kit', tag: 'Kits', name: 'Starter Tattoo Kit', desc: 'Black-and-gold hard case with a pen machine, cartridge and practice skin for new artists.', rating: 5, count: 27, thumb: 'assets/starter-kit.png' },
+  { price: 8, b2g2: false, cat: 'extras', icon: 'sticker', tag: 'Extras', name: 'Sticker Pack', desc: "American traditional flash stickers by Lou: dobermans, daggers, roses, a swallow and the paintbrush. Slap 'em anywhere.", rating: 5, count: 63, thumb: 'assets/stickers.png' },
+  { price: 30, b2g2: true, cat: 'apparel', icon: 'shirt', tag: 'Apparel', name: 'Signature Tee', desc: 'Heavyweight black tee with the doberman-and-triangle crest across the chest.', rating: 5, count: 74, thumb: 'assets/tee.png' },
+  { price: 38, b2g2: true, cat: 'apparel', icon: 'longsleeve', tag: 'Apparel', name: 'Long Sleeve Shirt', desc: 'Black long sleeve with the paintbrush-and-ribbon art running down the sleeve.', rating: 5, count: 31, thumb: 'assets/longsleeve.png' },
+  { price: 32, b2g2: true, cat: 'apparel', icon: 'shorts', tag: 'Apparel', name: 'Shorts', desc: 'Relaxed-fit fleece shorts with white drawstrings and a small gold star.', rating: 4, count: 22, thumb: 'assets/shorts.png' },
+  { price: 60, b2g2: true, cat: 'apparel', icon: 'hoodie', tag: 'Apparel', name: 'Hoodie', desc: 'Heavy fleece hoodie with a big doberman-and-triangle back print and gold sparkle stars.', rating: 5, count: 86, thumb: 'assets/hoodie.png' },
+  { price: 95, b2g2: true, cat: 'apparel', icon: 'jacket', tag: 'Apparel', name: 'Jacket', desc: 'Black-and-cream varsity jacket with an embroidered doberman crest patch.', rating: 5, count: 19, thumb: 'assets/jacket.png' },
+  { price: 14, b2g2: true, cat: 'apparel', icon: 'bandana', tag: 'Apparel', name: 'Bandana', desc: 'Black bandana with a cream paisley border and scattered flash stars and roses.', rating: 5, count: 40, thumb: 'assets/bandana.png' },
+  { price: 28, b2g2: true, cat: 'apparel', icon: 'hat', tag: 'Apparel', name: 'Hat', desc: 'Structured black cap with an embroidered champagne-gold star.', rating: 4, count: 35, thumb: 'assets/hat.png' },
+  { price: 12, b2g2: false, cat: 'extras', icon: 'charm', tag: 'Extras', name: 'Charms', desc: 'Gold charms inspired by tattoo flash: doberman, paintbrush, dagger and roses.', rating: 5, count: 29, thumb: 'assets/charms.png' },
+  { price: 12, b2g2: true, cat: 'apparel', icon: 'socks', tag: 'Apparel', name: 'Socks', desc: 'Black crew socks with woven gold stars and dagger flash.', rating: 5, count: 48, thumb: 'assets/socks.png' },
 ];
 
 const reviews = [
@@ -49,6 +49,7 @@ const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const stars = n => '★'.repeat(n) + '☆'.repeat(5 - n);
+const money = n => '$' + (Math.round(n * 100) / 100).toFixed(2).replace(/\.00$/, '');
 
 // ---------- Render products ----------
 const grid = $('#productGrid');
@@ -60,7 +61,8 @@ grid.innerHTML = products.map((p, i) => `
       ${p.img ? '' : `<div class="card-thumb">${p.thumb ? `<img src="${p.thumb}" alt="${p.name}" />` : `<svg viewBox="0 0 24 24" aria-hidden="true">${icons[p.icon]}</svg>`}</div>`}
       <h3>${p.name}</h3>
       <p>${p.desc}</p>
-      <div class="card-foot"><span class="stars" aria-label="${p.rating} out of 5 stars">${stars(p.rating)}<small>(${p.count})</small></span></div>
+      <div class="card-foot"><span class="stars" aria-label="${p.rating} out of 5 stars">${stars(p.rating)}<small>(${p.count})</small></span>${p.b2g2 ? '<span class="deal-chip" title="Counts toward Buy 2, Get 2 Free">B2G2</span>' : ''}</div>
+      <div class="card-buy"><span class="price">${money(p.price)}</span><button type="button" class="add-btn" data-add="${i}">Add to cart</button></div>
     </div>
   </article>`).join('');
 
@@ -208,8 +210,171 @@ form.addEventListener('submit', e => {
   const code = 'HUE15-' + Math.random().toString(36).slice(2, 7).toUpperCase();
   $('#proofName').textContent = `Welcome to the Hue, ${name.split(' ')[0]}!`;
   $('#proofCode').textContent = code;
+  try { localStorage.setItem('louhue-code', code); } catch (e) {}
+  if (window.applySignupCode) window.applySignupCode(code);
   form.hidden = true; $('#proof').hidden = false;
 });
+
+
+// ---------- Cart, deals & checkout ----------
+const TATTOO = {
+  small: { label: 'Small tattoo (palm-size)', price: 80 },
+  medium: { label: 'Medium tattoo (hand-size)', price: 150 },
+  large: { label: 'Large tattoo (half-sleeve session)', price: 300 },
+};
+const cart = [];               // { key, name, price, qty, b2g2, img, tattoo?: { size, people } }
+let signupCode = '';
+try { signupCode = localStorage.getItem('louhue-code') || ''; } catch (e) {}
+const validCode = c => /^HUE15-[A-Z0-9]{5}$/.test((c || '').trim().toUpperCase());
+
+const cartEl = $('#cart'), overlay = $('#cartOverlay'), countEl = $('#cartCount');
+const openCart = () => { overlay.hidden = false; requestAnimationFrame(() => document.body.classList.add('cart-open')); cartEl.setAttribute('aria-hidden', 'false'); $('#cartClose').focus(); };
+const closeCart = () => { document.body.classList.remove('cart-open'); cartEl.setAttribute('aria-hidden', 'true'); setTimeout(() => { overlay.hidden = true; }, 450); };
+$('#cartBtn').addEventListener('click', openCart);
+$('#cartClose').addEventListener('click', closeCart);
+overlay.addEventListener('click', closeCart);
+addEventListener('keydown', e => { if (e.key === 'Escape' && document.body.classList.contains('cart-open')) closeCart(); });
+
+let toastTimer;
+const toast = text => {
+  const t = $('#toast'); t.textContent = text; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+};
+
+function addItem(item) {
+  const found = cart.find(c => c.key === item.key);
+  if (found) found.qty += item.qty; else cart.push(item);
+  renderCart();
+  countEl.classList.remove('bump'); void countEl.offsetWidth; countEl.classList.add('bump');
+  toast(`Added ${item.name}`);
+}
+
+// Shop "Add to cart" buttons
+grid.addEventListener('click', e => {
+  const btn = e.target.closest('[data-add]');
+  if (!btn) return;
+  const p = products[+btn.dataset.add];
+  addItem({ key: p.name, name: p.name, price: p.price, qty: 1, b2g2: p.b2g2, img: p.img || p.thumb });
+  btn.textContent = 'Added ✓'; btn.classList.add('done');
+  setTimeout(() => { btn.textContent = 'Add to cart'; btn.classList.remove('done'); }, 1400);
+});
+
+// Tattoo booking
+const bookForm = $('#bookForm');
+const bookChoice = () => ({ size: bookForm.size.value, people: +bookForm.people.value });
+const tattooDiscount = people => (people === 3 ? { pct: 25, label: 'Trio deal' } : validCode(signupCode) ? { pct: 15, label: 'Sign-up deal' } : null);
+function updateBookPrice() {
+  const { size, people } = bookChoice();
+  const base = TATTOO[size].price * people, d = tattooDiscount(people);
+  $('#bookPrice').textContent = money(d ? base * (1 - d.pct / 100) : base);
+  $('#bookSave').textContent = d ? `${d.label}: save ${money(base * d.pct / 100)}` : people === 2 ? 'Add a third person for 25% off' : '';
+}
+bookForm.addEventListener('change', updateBookPrice);
+bookForm.addEventListener('submit', e => {
+  e.preventDefault();
+  const { size, people } = bookChoice();
+  const name = TATTOO[size].label + (people > 1 ? ` × ${people} people` : '');
+  addItem({ key: `tattoo-${size}-${people}`, name, price: TATTOO[size].price * people, qty: 1, b2g2: false, tattoo: { size, people } });
+  openCart();
+});
+
+// Deal math
+function totals() {
+  let subtotal = 0, b2g2Save = 0, tattooSave = 0;
+  const units = [];
+  const tattooLabels = new Set();
+  for (const c of cart) {
+    subtotal += c.price * c.qty;
+    if (c.b2g2) for (let k = 0; k < c.qty; k++) units.push(c.price);
+    if (c.tattoo) {
+      const d = tattooDiscount(c.tattoo.people);
+      if (d) { tattooSave += c.price * c.qty * d.pct / 100; tattooLabels.add(`${d.label} (${d.pct}%)`); }
+    }
+  }
+  // Buy 2, Get 2: priciest items are paid, every 3rd and 4th item in each group of 4 is free
+  units.sort((a, b) => b - a);
+  units.forEach((p, i) => { if (i % 4 >= 2) b2g2Save += p; });
+  const nextFree = units.length && units.length < 3 ? 3 - units.length : 0;
+  return { subtotal, b2g2Save, tattooSave, tattooLabels: [...tattooLabels], units: units.length, nextFree, total: subtotal - b2g2Save - tattooSave };
+}
+
+function renderCart() {
+  const n = cart.reduce((s, c) => s + c.qty, 0);
+  countEl.textContent = n;
+  countEl.classList.toggle('has', n > 0);
+  const items = $('#cartItems');
+  if (!cart.length) {
+    items.innerHTML = '<div class="cart-empty"><p>Your cart is empty.</p><a href="#products" class="btn btn-sm btn-ghost" id="emptyShop">Browse the shop</a></div>';
+    $('#emptyShop').addEventListener('click', closeCart);
+  } else {
+    items.innerHTML = cart.map((c, i) => `
+      <div class="cart-line">
+        <div class="line-img">${c.img ? `<img src="${c.img}" alt="" />` : '<span aria-hidden="true">✦</span>'}</div>
+        <div class="line-info">
+          <b>${c.name}</b>
+          <span>${money(c.price)}${c.b2g2 ? ' · <em>B2G2</em>' : ''}${c.tattoo && tattooDiscount(c.tattoo.people) ? ` · <em>${tattooDiscount(c.tattoo.people).pct}% off</em>` : ''}</span>
+        </div>
+        <div class="qty">
+          <button type="button" data-q="${i}" data-d="-1" aria-label="Remove one ${c.name}">−</button>
+          <span>${c.qty}</span>
+          <button type="button" data-q="${i}" data-d="1" aria-label="Add one ${c.name}">+</button>
+        </div>
+      </div>`).join('');
+  }
+  const t = totals();
+  $('#cartHint').innerHTML = t.nextFree
+    ? `Add <b>${t.nextFree}</b> more clothing or supply item${t.nextFree > 1 ? 's' : ''} and ${t.nextFree > 1 ? 'your 3rd one is' : 'it\'s'} free. <b>Buy 2, Get 2 Free.</b>`
+    : t.b2g2Save ? `<b>Buy 2, Get 2 Free</b> applied: ${t.units % 4 === 3 ? 'add 1 more item and it\'s free too.' : 'the lowest-priced items are free.'}` : '';
+  $('#cartHint').hidden = !$('#cartHint').innerHTML;
+  $('#cartTotals').innerHTML = `
+    <div><dt>Subtotal</dt><dd>${money(t.subtotal)}</dd></div>
+    ${t.b2g2Save ? `<div class="save"><dt>Buy 2, Get 2 Free</dt><dd>−${money(t.b2g2Save)}</dd></div>` : ''}
+    ${t.tattooSave ? `<div class="save"><dt>${t.tattooLabels.join(' + ')}</dt><dd>−${money(t.tattooSave)}</dd></div>` : ''}
+    <div class="grand"><dt>Total</dt><dd>${money(t.total)}</dd></div>`;
+  $('#checkoutBtn').disabled = !cart.length;
+}
+
+$('#cartItems').addEventListener('click', e => {
+  const b = e.target.closest('[data-q]');
+  if (!b) return;
+  const c = cart[+b.dataset.q];
+  c.qty += +b.dataset.d;
+  if (c.qty <= 0) cart.splice(+b.dataset.q, 1);
+  renderCart();
+});
+
+// Sign-up code
+const codeInput = $('#codeInput'), codeMsg = $('#codeMsg');
+window.applySignupCode = code => {
+  signupCode = code; codeInput.value = code;
+  codeMsg.textContent = 'Code applied: 15% off tattoos.'; codeMsg.className = 'code-msg ok';
+  updateBookPrice(); renderCart();
+};
+$('#codeApply').addEventListener('click', () => {
+  const c = codeInput.value.trim().toUpperCase();
+  if (validCode(c)) { window.applySignupCode(c); try { localStorage.setItem('louhue-code', c); } catch (e) {} }
+  else { codeMsg.textContent = 'That code doesn\'t look right. Sign up below to get one (it looks like HUE15-AB12C).'; codeMsg.className = 'code-msg bad'; }
+});
+if (validCode(signupCode)) { codeInput.value = signupCode; codeMsg.textContent = 'Code applied: 15% off tattoos.'; codeMsg.className = 'code-msg ok'; }
+
+// Checkout (demo)
+$('#checkoutForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const name = $('#coName').value.trim(), email = $('#coEmail').value.trim(), m = $('#coMsg');
+  if (!cart.length) { m.textContent = 'Your cart is empty.'; return; }
+  if (!name) { m.textContent = 'Please enter your name.'; return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { m.textContent = 'Please enter a valid email.'; return; }
+  m.textContent = '';
+  const t = totals();
+  $('#doneText').textContent = `Thanks, ${name.split(' ')[0]}! Your order total was ${money(t.total)}${t.b2g2Save + t.tattooSave ? ` and you saved ${money(t.b2g2Save + t.tattooSave)}` : ''}. Show this order number at the shop.`;
+  $('#orderNum').textContent = 'LH-' + Math.random().toString(36).slice(2, 8).toUpperCase();
+  cart.length = 0; renderCart();
+  $('#cartBody').hidden = true; $('#cartDone').hidden = false;
+});
+$('#doneBtn').addEventListener('click', () => { $('#cartDone').hidden = true; $('#cartBody').hidden = false; closeCart(); });
+
+updateBookPrice();
+renderCart();
 
 // ---------- Loader ----------
 $('#year').textContent = new Date().getFullYear();
