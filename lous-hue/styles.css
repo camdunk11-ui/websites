@@ -196,7 +196,7 @@ h3 { font-family: var(--display); font-weight: 500; letter-spacing: .04em; color
 .chip.active { background: var(--gold); color: var(--bg); border-color: var(--gold); }
 .grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
 @media (min-width: 620px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1100px) { .grid { grid-template-columns: repeat(4, 1fr); } .custom-tile { grid-column: span 3; } }
+@media (min-width: 1100px) { .grid { grid-template-columns: repeat(4, 1fr); } }
 .custom-tile { position: relative; display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: 30px 34px; border-radius: 18px; border: 1px dashed var(--gold-2); background: linear-gradient(120deg, #1d1a13, var(--bg-2) 70%); overflow: hidden; transition: border-color .5s, transform .5s var(--ease); }
 .custom-tile .eyebrow { margin-bottom: 4px; }
 .custom-tile h3 { font-size: clamp(1.2rem, 2.4vw, 1.6rem); padding-right: 60px; }
@@ -219,7 +219,7 @@ h3 { font-family: var(--display); font-weight: 500; letter-spacing: .04em; color
 .card-media { position: relative; height: 100%; min-height: 260px; display: grid; place-items: center; padding: 22px; background: radial-gradient(circle at 50% 45%, rgba(232,214,178,.16), transparent 65%); }
 .card-media img { max-height: 250px; width: auto; filter: drop-shadow(0 22px 26px rgba(0,0,0,.7)); transform: rotate(-4deg); transition: transform .9s var(--ease); animation: float 6s ease-in-out infinite; }
 .card-feature:hover .card-media img { transform: rotate(4deg) scale(1.06); }
-@media (min-width: 620px) { .card-feature { grid-column: span 2; } }
+@media (min-width: 620px) { .card-feature, .custom-tile { grid-column: span 2; } }
 @media (min-width: 620px) and (max-width: 1099px) { .card-feature .card-media img { max-height: 220px; } }
 @media (max-width: 619px) { .card-feature { grid-template-columns: 1fr; } .card-feature .card-body { padding: 0 26px 26px; } .card-media { min-height: 220px; } }
 .card.pop { animation: pop .6s var(--ease) both; }
