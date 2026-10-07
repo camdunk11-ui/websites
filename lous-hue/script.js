@@ -27,7 +27,7 @@ const products = [
   { cat: 'apparel', icon: 'shirt', tag: 'Apparel', name: 'Signature Tee', desc: 'Heavyweight cotton tee with the Lou\'s Hue dog crest.', rating: 5, count: 74 },
   { cat: 'apparel', icon: 'longsleeve', tag: 'Apparel', name: 'Long Sleeve Shirt', desc: 'Sleeve-print long sleeve with the brush-and-ribbon art.', rating: 5, count: 31 },
   { cat: 'apparel', icon: 'shorts', tag: 'Apparel', name: 'Shorts', desc: 'Relaxed-fit shorts with embroidered LH monogram.', rating: 4, count: 22 },
-  { cat: 'apparel', icon: 'hoodie', tag: 'Apparel', name: 'Hoodie', desc: 'Heavy fleece hoodie — "Bring out the hue to be you" back print.', rating: 5, count: 86 },
+  { cat: 'apparel', icon: 'hoodie', tag: 'Apparel', name: 'Hoodie', desc: 'Heavy fleece hoodie with a big doberman-and-triangle back print and gold sparkle stars.', rating: 5, count: 86, thumb: 'assets/hoodie.png' },
   { cat: 'apparel', icon: 'jacket', tag: 'Apparel', name: 'Jacket', desc: 'Black-and-cream varsity jacket with an embroidered doberman crest patch.', rating: 5, count: 19, thumb: 'assets/jacket.png' },
   { cat: 'apparel', icon: 'bandana', tag: 'Apparel', name: 'Bandana', desc: 'Black bandana with a cream paisley border and scattered flash stars and roses.', rating: 5, count: 40, thumb: 'assets/bandana.png' },
   { cat: 'apparel', icon: 'hat', tag: 'Apparel', name: 'Hat', desc: 'Structured black cap with an embroidered champagne-gold star.', rating: 4, count: 35, thumb: 'assets/hat.png' },
