@@ -207,4 +207,4 @@ addEventListener('load', () => setTimeout(() => {
   $('#loader').classList.add('done');
   document.body.classList.remove('loading');
   document.body.classList.add('ready');
-}, reduceMotion ? 0 : 1300));
+}, reduceMotion ? 0 : 700));

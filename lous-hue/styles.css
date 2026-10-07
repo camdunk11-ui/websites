@@ -1,4 +1,5 @@
 :root {
+  color-scheme: dark;
   --bg: #070807;
   --bg-2: #0e100e;
   --card: #121412;
@@ -102,7 +103,7 @@ body::after {
 .burger.open span:last-child { top: 11px; transform: rotate(-45deg); }
 
 /* ---------- Hero ---------- */
-.hero { position: relative; min-height: 100vh; display: grid; align-items: center; padding: 120px clamp(16px, 6vw, 80px) 80px; overflow: hidden; }
+.hero { position: relative; display: grid; align-items: center; padding: 140px clamp(16px, 6vw, 80px) 110px; overflow: hidden; }
 .hero-bg { position: absolute; inset: 0; z-index: -1; }
 #sparks { position: absolute; inset: 0; width: 100%; height: 100%; }
 .orb { position: absolute; border-radius: 50%; filter: blur(90px); opacity: .35; }
@@ -155,8 +156,8 @@ h2 em { font-family: var(--serif); font-style: italic; color: var(--gold); }
 h3 { font-family: var(--display); font-weight: 500; letter-spacing: .04em; color: var(--gold-3); }
 
 /* reveal on scroll */
-.reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s var(--ease), transform 1s var(--ease); transition-delay: var(--d, 0s); }
-.reveal.in { opacity: 1; transform: none; }
+.reveal { transform: translateY(32px); transition: opacity 1s var(--ease), transform 1s var(--ease); transition-delay: var(--d, 0s); }
+.reveal.in { transform: none; }
 
 /* ---------- About ---------- */
 .about { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(40px, 7vw, 100px); align-items: center; }
@@ -221,6 +222,7 @@ h3 { font-family: var(--display); font-weight: 500; letter-spacing: .04em; color
 .badge { position: absolute; top: 20px; right: 20px; font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; background: var(--gold); color: var(--bg); font-weight: 600; z-index: 1; }
 
 /* ---------- Reviews ---------- */
+.sample-note { color: var(--muted); font-size: .78rem; letter-spacing: .08em; margin-top: -14px; }
 .review-slider { overflow: hidden; margin-top: 30px; }
 .review-track { display: flex; transition: transform .9s var(--ease); }
 .review { flex: 0 0 100%; padding: 0 clamp(0px, 8vw, 120px); text-align: center; }
