@@ -425,3 +425,15 @@ form { display: grid; gap: 16px; }
 @media (max-width: 960px) { .booking { grid-template-columns: 1fr; } }
 @media (max-width: 860px) { .cart-btn { margin-left: auto; margin-right: 14px; } }
 @media (max-width: 420px) { .seg small { font-size: .66rem; } .seg span { padding: 10px 6px; } }
+
+/* Discount display */
+.line-tag { display: inline-block; justify-self: start; font-size: .62rem !important; font-weight: 600; letter-spacing: .12em; padding: 3px 8px; border-radius: 999px; background: var(--gold); color: var(--bg) !important; }
+.line-price { font-variant-numeric: tabular-nums; }
+.line-price s, .booking-total s { color: var(--muted); text-decoration-thickness: 1.5px; text-decoration-color: #e0a490; }
+.line-price ins { text-decoration: none; color: #9fc79f; font-weight: 500; }
+.cart-line.discounted { border-color: rgba(232,214,178,.4); }
+.booking-total s { font-size: 1.1rem; font-family: var(--display); }
+.booking-total s:empty { display: none; }
+.off-tag { font-size: .66rem !important; font-weight: 600; letter-spacing: .12em; padding: 4px 10px; border-radius: 999px; background: var(--gold); color: var(--bg) !important; animation: pop .5s var(--ease) both; }
+.off-tag[hidden] { display: none; }
+.deal-chip { white-space: nowrap; }

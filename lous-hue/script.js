@@ -61,7 +61,7 @@ grid.innerHTML = products.map((p, i) => `
       ${p.img ? '' : `<div class="card-thumb">${p.thumb ? `<img src="${p.thumb}" alt="${p.name}" />` : `<svg viewBox="0 0 24 24" aria-hidden="true">${icons[p.icon]}</svg>`}</div>`}
       <h3>${p.name}</h3>
       <p>${p.desc}</p>
-      <div class="card-foot"><span class="stars" aria-label="${p.rating} out of 5 stars">${stars(p.rating)}<small>(${p.count})</small></span>${p.b2g2 ? '<span class="deal-chip" title="Counts toward Buy 2, Get 2 Free">B2G2</span>' : ''}</div>
+      <div class="card-foot"><span class="stars" aria-label="${p.rating} out of 5 stars">${stars(p.rating)}<small>(${p.count})</small></span>${p.b2g2 ? '<span class="deal-chip">Buy 2, Get 2 Free</span>' : ''}</div>
       <div class="card-buy"><span class="price">${money(p.price)}</span><button type="button" class="add-btn" data-add="${i}">Add to cart</button></div>
     </div>
   </article>`).join('');
@@ -267,6 +267,9 @@ function updateBookPrice() {
   const { size, people } = bookChoice();
   const base = TATTOO[size].price * people, d = tattooDiscount(people);
   $('#bookPrice').textContent = money(d ? base * (1 - d.pct / 100) : base);
+  $('#bookOrig').textContent = d ? money(base) : '';
+  $('#bookTag').textContent = d ? `${d.pct}% OFF` : '';
+  $('#bookTag').hidden = !d;
   $('#bookSave').textContent = d ? `${d.label}: save ${money(base * d.pct / 100)}` : people === 2 ? 'Add a third person for 25% off' : '';
 }
 bookForm.addEventListener('change', updateBookPrice);
@@ -283,19 +286,24 @@ function totals() {
   let subtotal = 0, b2g2Save = 0, tattooSave = 0;
   const units = [];
   const tattooLabels = new Set();
-  for (const c of cart) {
+  const lines = cart.map(c => ({ orig: c.price * c.qty, save: 0, free: 0, pct: 0, label: '' }));
+  cart.forEach((c, li) => {
     subtotal += c.price * c.qty;
-    if (c.b2g2) for (let k = 0; k < c.qty; k++) units.push(c.price);
+    if (c.b2g2) for (let k = 0; k < c.qty; k++) units.push({ p: c.price, li });
     if (c.tattoo) {
       const d = tattooDiscount(c.tattoo.people);
-      if (d) { tattooSave += c.price * c.qty * d.pct / 100; tattooLabels.add(`${d.label} (${d.pct}%)`); }
+      if (d) {
+        const s = c.price * c.qty * d.pct / 100;
+        tattooSave += s; tattooLabels.add(`${d.label} (${d.pct}%)`);
+        Object.assign(lines[li], { save: s, pct: d.pct, label: d.label });
+      }
     }
-  }
+  });
   // Buy 2, Get 2: priciest items are paid, every 3rd and 4th item in each group of 4 is free
-  units.sort((a, b) => b - a);
-  units.forEach((p, i) => { if (i % 4 >= 2) b2g2Save += p; });
+  units.sort((a, b) => b.p - a.p);
+  units.forEach((u, i) => { if (i % 4 >= 2) { b2g2Save += u.p; lines[u.li].save += u.p; lines[u.li].free++; } });
   const nextFree = units.length && units.length < 3 ? 3 - units.length : 0;
-  return { subtotal, b2g2Save, tattooSave, tattooLabels: [...tattooLabels], units: units.length, nextFree, total: subtotal - b2g2Save - tattooSave };
+  return { subtotal, b2g2Save, tattooSave, tattooLabels: [...tattooLabels], units: units.length, nextFree, lines, total: subtotal - b2g2Save - tattooSave };
 }
 
 function renderCart() {
@@ -307,19 +315,24 @@ function renderCart() {
     items.innerHTML = '<div class="cart-empty"><p>Your cart is empty.</p><a href="#products" class="btn btn-sm btn-ghost" id="emptyShop">Browse the shop</a></div>';
     $('#emptyShop').addEventListener('click', closeCart);
   } else {
-    items.innerHTML = cart.map((c, i) => `
-      <div class="cart-line">
+    const L = totals().lines;
+    items.innerHTML = cart.map((c, i) => {
+      const l = L[i], tag = l.free ? (l.free === c.qty ? 'FREE · Buy 2, Get 2' : `${l.free} FREE · Buy 2, Get 2`) : l.pct ? `${l.pct}% OFF · ${l.label}` : '';
+      return `
+      <div class="cart-line${l.save ? ' discounted' : ''}">
         <div class="line-img">${c.img ? `<img src="${c.img}" alt="" />` : '<span aria-hidden="true">✦</span>'}</div>
         <div class="line-info">
           <b>${c.name}</b>
-          <span>${money(c.price)}${c.b2g2 ? ' · <em>B2G2</em>' : ''}${c.tattoo && tattooDiscount(c.tattoo.people) ? ` · <em>${tattooDiscount(c.tattoo.people).pct}% off</em>` : ''}</span>
+          ${tag ? `<span class="line-tag">${tag}</span>` : ''}
+          <span class="line-price">${l.save ? `<s>${money(l.orig)}</s> <ins>${l.orig - l.save > 0 ? money(l.orig - l.save) : 'FREE'}</ins>` : money(l.orig)}</span>
         </div>
         <div class="qty">
           <button type="button" data-q="${i}" data-d="-1" aria-label="Remove one ${c.name}">−</button>
           <span>${c.qty}</span>
           <button type="button" data-q="${i}" data-d="1" aria-label="Add one ${c.name}">+</button>
         </div>
-      </div>`).join('');
+      </div>`;
+    }).join('');
   }
   const t = totals();
   $('#cartHint').innerHTML = t.nextFree
