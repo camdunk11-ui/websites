@@ -23,7 +23,7 @@ const products = [
   { cat: 'tattoo', icon: 'aftercare', tag: 'Aftercare', name: 'Healing & Protection Aftercare', desc: 'Soothing balm that protects fresh ink and helps it heal bright. 5 fl oz / 150 mL jar with the Lou\'s Hue seal.', rating: 5, count: 91, img: 'assets/aftercare.png' },
   { cat: 'tattoo', icon: 'supplies', tag: 'Supplies', name: 'Tattoo Supplies', desc: 'Needles, ink caps, grips, gloves and everything for a clean setup.', rating: 4, count: 44 },
   { cat: 'tattoo', icon: 'kit', tag: 'Kits', name: 'Starter Tattoo Kit', desc: 'An all-in-one kit for new artists starting their own journey.', rating: 5, count: 27 },
-  { cat: 'extras', icon: 'sticker', tag: 'Extras', name: 'Sticker Pack', desc: "Original flash-art stickers designed by Lou — slap 'em anywhere.", rating: 5, count: 63 },
+  { cat: 'extras', icon: 'sticker', tag: 'Extras', name: 'Sticker Pack', desc: "American traditional flash stickers by Lou: dobermans, daggers, roses, a swallow and the paintbrush. Slap 'em anywhere.", rating: 5, count: 63, thumb: 'assets/stickers.png' },
   { cat: 'apparel', icon: 'shirt', tag: 'Apparel', name: 'Signature Tee', desc: 'Heavyweight cotton tee with the Lou\'s Hue dog crest.', rating: 5, count: 74 },
   { cat: 'apparel', icon: 'longsleeve', tag: 'Apparel', name: 'Long Sleeve Shirt', desc: 'Sleeve-print long sleeve with the brush-and-ribbon art.', rating: 5, count: 31 },
   { cat: 'apparel', icon: 'shorts', tag: 'Apparel', name: 'Shorts', desc: 'Relaxed-fit shorts with embroidered LH monogram.', rating: 4, count: 22 },
