@@ -19,7 +19,7 @@ const icons = {
 
 const products = [
   { cat: 'tattoo', icon: 'gun', tag: 'Machines', name: 'Old Style Tattoo Gun', desc: 'Classic coil machine with that traditional buzz — built for bold lines. Polished steel frame, dual wrapped coils and a knurled grip.', rating: 5, count: 38, img: 'assets/old-style-gun.png' },
-  { cat: 'tattoo', icon: 'machine', tag: 'Machines', name: 'Electric Tattoo Gun', desc: 'Smooth, quiet rotary-style machine for lining, shading and color.', rating: 5, count: 52 },
+  { cat: 'tattoo', icon: 'machine', tag: 'Machines', name: 'Electric Tattoo Gun', desc: 'Smooth, quiet wireless pen machine for lining, shading and color. Digital voltage display and swappable cartridge needles.', rating: 5, count: 52, img: 'assets/electric-gun.png' },
   { cat: 'tattoo', icon: 'aftercare', tag: 'Aftercare', name: 'Healing & Protection Aftercare', desc: 'Soothing balm that protects fresh ink and helps it heal bright.', rating: 5, count: 91 },
   { cat: 'tattoo', icon: 'supplies', tag: 'Supplies', name: 'Tattoo Supplies', desc: 'Needles, ink caps, grips, gloves and everything for a clean setup.', rating: 4, count: 44 },
   { cat: 'tattoo', icon: 'kit', tag: 'Kits', name: 'Starter Tattoo Kit', desc: 'An all-in-one kit for new artists starting their own journey.', rating: 5, count: 27 },
@@ -63,6 +63,14 @@ grid.innerHTML = products.map((p, i) => `
       <div class="card-foot"><span class="stars" aria-label="${p.rating} out of 5 stars">${stars(p.rating)}<small>(${p.count})</small></span></div>
     </div>
   </article>`).join('');
+
+grid.insertAdjacentHTML('beforeend', `
+  <a href="#contact" class="custom-tile reveal">
+    <span class="eyebrow">Custom Work</span>
+    <h3>Want a tattoo designed just for you?</h3>
+    <p>Every piece is drawn by Lou from scratch. Reach out to book a consultation.</p>
+    <span class="custom-arrow" aria-hidden="true">→</span>
+  </a>`);
 
 // card spotlight follows mouse
 $$('.card').forEach(card => card.addEventListener('pointermove', e => {
